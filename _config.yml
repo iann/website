@@ -1,10 +1,10 @@
 # accessible as site.*
-title: "Jon Smajda's Blog"
-description: "Jon Smajda's Blog"
-url: "http://jon.smajda.com"
-files: "http://jon.smajda.com/files/" 
-author: "Jon Smajda"
-email: "jon@smajda.com"
+title: "Ian Moriarty"
+description: "Ian Moriarty"
+url: "http://iann.github.com"
+files: "http://iann.github.com/files/" 
+author: "Ian Moriarty"
+email: "rominet@gmail.com"
 
 # --server --auto
 server: true
