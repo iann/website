@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About This Blog
-permalink: /about/
+permalink: /about2/
 ---
 I'm a graduate student in sociology, but this isn't really a "sociology blog". I do occasionally write about my research (currently on politics and technology). 
 
