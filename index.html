@@ -4,15 +4,15 @@ title: Home
 ---
     <h3 id="recent-posts">recent blog posts</h3>
     <ul class="archive">
-    {% for post in site.posts limit:8 %}
+    {% for post in site.posts limit:2 %}
         <li>
         <div class="archive-date">{{ post.date | date: "%b %d, %Y"  }}</div> 
         <div class="archive-link">
             <a href="{{ post.url }}">{{ post.title }}</a>
-            </br><p>{{ post.content }}
+            <p>{{ post.content }}
         </div>
         </li>
-    {%endfor %}
+    {% endfor %}
 <!--<li>&rarr; <a href="/archive/">More...</a></li>-->
     </ul>
 
