@@ -1,8 +1,0 @@
----
-layout: page
-title: About This Blog
-date: 2011-03-14 14:39:00 UTC
-permalink: /about/
----
-
-Currently, I am a computer science student at the University of Massachusetts, Amherst with aconcentration in computer vision and a minor in mathematics. Also I am an enthusiast of anything technology especially all things Apple. And nothing beats a nice latte.
