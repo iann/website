@@ -1,19 +1,49 @@
 {% include header.html %}
 <body>
-    <div id="nav">
-            <h1><a href="/">{{ site.title }}</a></h1>
 
-            <ul>
-                <li><a href="/archive/">Archive</a></li>
-                <li><a href="/about/">About This Blog</a></li>
-                <li><a href="/rss.xml">RSS</a> | <a href="/atom.xml">Atom</a></li>
-            </ul>
+   <div class="span-17 colborder" id="content">
+          <h3 class="loud">Featured Book: "The World Without Us"</h3>
 
-            <h3>about me</h3>
-            <p>Currently, I am a computer science student at the University of Massachusetts, Amherst with a concentration in computer vision and a minor in mathematics. Also I am an enthusiast of anything technology especially all things Apple. And nothing beats a nice latte.
+              <h3 id="recent-posts">Recent blog posts</h3>
+    <ul class="archive">
+    {% for post in site.posts limit:2 %}
+        <li>
+        <div class="archive-date">{{ post.date | date: "%b %d, %Y"  }}</div> 
+        <div class="archive-link">
+            <a href="{{ post.url }}">{{ post.title }}</a>
+            <p>{{ post.content }}
+        </div>
+        </li>
+    {% endfor %}
+<!--<li>&rarr; <a href="/archive/">More...</a></li>-->
+    </ul>   
 
-            <h3>more me</h3>
+          <p>
+            Cras sagittis. Fusce porttitor felis sed massa. In hac habitasse platea dictumst.
+          </p>
 
+          <hr />
+          <div class="span-8 colborder">
+            <h4 class="prepend-5">Upload a Book</h4>
+            <p>
+              Nam vitae tortor id ante sodales facilisis.
+            </p>
+          </div>
+
+          <div class="span-8 last">
+            <h4 class="prepend-5">Write a Review</h4>
+            <p>
+              Nam vitae tortor id ante sodales facilisis. Mauris ipsum.
+            </p>
+          </div>
+        </div>
+
+        <div class="span-6 last" id="sidebar">
+
+          <div id="recent-books">
+            <h3 class="caps">More Me</h3>
+
+            <div class="box">
             <ul>
                 <li><a title="@iann on twitter" href="http://twitter.com/iann">twitter</a></li>
                 <li><a title="facebook.com/ianjm" href="http://facebook.com/ianjm">facebook</a></li>
@@ -21,20 +51,24 @@
                 <li><a title="last.fm/user/rominet" href="http://last.fm/user/rominet">last.fm</a></li>
 
             </ul>
+            </div>
 
-    </div>
+          </div>
 
-    <div id="content">
+          <div class="prepend-top" id="recent-reviews">
+            <h3 class="caps">Twitter Feed</h3>
+            <div class="box">
+              <span class="quiet">Thor reviewed Hygiene</span>
+              <div class="quiet">Rating: 4/5</div>
+              <a href="#" class="quiet">Read this review</a>
+            </div>
 
-    {{ content }}
+          </div>
+        </div>
 
-    <div id="footer">
-        <p>Based off original theme by <a href="http://jon.smajda.com">Jon Smajda</a>. The content of this site is licensed under a <br /><a href="http://creativecommons.org/licenses/by-nc-sa/3.0/us/">Creative Commons Attribution-Noncommercial-Share Alike 3.0 license</a>.</p>
+        <hr />
+    
 
-
-    </div>
-
-    </div>
-
+    
 </body>
 </html>
