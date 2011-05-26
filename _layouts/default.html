@@ -1,69 +1,62 @@
 {% include header.html %}
 <body>
-        <div class="container">
-   <div class="span-17 colborder" id="content">
-          <h3 class="loud">Ian Moriarty</h3>
 
-              <h3 id="recent-posts">Recent Posts</h3>
-    <ul class="archive">
-    {% for post in site.posts limit:2 %}
+  <div class="container">
+    <div class="span-17 colborder" id="content">
+      <h3 class="loud">Ian Moriarty</h3>
+      <h3 id="recent-posts">Recent Posts</h3>
+      
+      <ul class="archive">
+        {% for post in site.posts limit:2 %}
         <li>
-        <div class="archive-date">{{ post.date | date: "%b %d, %Y"  }}</div> 
-        <div class="archive-link">
+          <div class="archive-date">{{ post.date | date: "%b %d, %Y"  }}</div> 
+          <div class="archive-link">
             <a href="{{ post.url }}">{{ post.title }}</a>
             <p>{{ post.content }}
-        </div>
+          </div>
         </li>
-    {% endfor %}
-    </ul>   
+        {% endfor %}
+      </ul>   
+      
+      <hr />
+      
 
-          <hr />
-          <div class="span-8 colborder">
-            <h4 class="prepend-5">Upload a Book</h4>
-            <p>
-              Nam vitae tortor id ante sodales facilisis.
-            </p>
-          </div>
+      <div class="span-6 last" id="sidebar">
 
-          <div class="span-8 last">
-            <h4 class="prepend-5">Write a Review</h4>
-            <p>
-              Nam vitae tortor id ante sodales facilisis. Mauris ipsum.
-            </p>
-          </div>
-        </div>
+        <div id="recent-books">
+          <h3 class="caps">More Me</h3>
 
-        <div class="span-6 last" id="sidebar">
-
-          <div id="recent-books">
-            <h3 class="caps">More Me</h3>
-
-            <div class="box">
+          <div class="box">
             <ul>
-                <li><a title="@iann on twitter" href="http://twitter.com/iann">twitter</a></li>
-                <li><a title="facebook.com/ianjm" href="http://facebook.com/ianjm">facebook</a></li>
-                <li><a title="iann on github" href="https://github.com/iann">github</a></li>
-                <li><a title="last.fm/user/rominet" href="http://last.fm/user/rominet">last.fm</a></li>
-
+              <li>
+                <a title="@iann on twitter" href="http://twitter.com/iann">twitter</a>
+              </li>
+              <li>
+                <a title="facebook.com/ianjm" href="http://facebook.com/ianjm">facebook</a>
+              </li>
+              <li>
+                <a title="iann on github" href="https://github.com/iann">github</a>
+              </li>
+              <li>
+                <a title="last.fm/user/rominet" href="http://last.fm/user/rominet">last.fm</a>
+              </li>
             </ul>
-            </div>
-
           </div>
-
-          <div class="prepend-top" id="recent-reviews">
-            <h3 class="caps">Twitter Feed</h3>
-            <div class="box">
-              <span class="quiet">Thor reviewed Hygiene</span>
-              <div class="quiet">Rating: 4/5</div>
-              <a href="#" class="quiet">Read this review</a>
-            </div>
-
+        
+        </div>
+        
+        <div class="prepend-top" id="recent-reviews">
+          <h3 class="caps">Twitter Feed</h3>
+          <div class="box">
+            <span class="quiet">Thor reviewed Hygiene</span>
+            <div class="quiet">Rating: 4/5</div>
+            <a href="#" class="quiet">Read this review</a>
           </div>
         </div>
+      </div>
+      
+      <hr />
 
-        <hr />
-</div>
-
-    
-</body>
-</html>
+    </div>
+  
+  </body>
