@@ -1,10 +1,10 @@
 {% include header.html %}
 <body>
-
+        <div class="container">
    <div class="span-17 colborder" id="content">
           <h3 class="loud">Ian Moriarty</h3>
 
-              <h3 id="recent-posts">Recent blog posts</h3>
+              <h3 id="recent-posts">Recent Posts</h3>
     <ul class="archive">
     {% for post in site.posts limit:2 %}
         <li>
@@ -15,12 +15,7 @@
         </div>
         </li>
     {% endfor %}
-<!--<li>&rarr; <a href="/archive/">More...</a></li>-->
     </ul>   
-
-          <p>
-            Cras sagittis. Fusce porttitor felis sed massa. In hac habitasse platea dictumst.
-          </p>
 
           <hr />
           <div class="span-8 colborder">
@@ -67,7 +62,7 @@
         </div>
 
         <hr />
-    
+</div>
 
     
 </body>
