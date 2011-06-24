@@ -4,20 +4,15 @@
   <div class="container">
 
     <div class="span-17 colborder" id="content">
-      <h3 class="loud">Ian Moriarty</h3>
       <h3 id="recent-posts">Recent Posts</h3>
       
-      <ul class="archive">
-        {% for post in site.posts limit:2 %}
+        {% for post in site.posts limit 10 %}
         <li>
-          <div class="archive-date">{{ post.date | date: "%b %d, %Y"  }}</div> 
-          <div class="archive-link">
-            <a href="{{ post.url }}">{{ post.title }}</a>
+          {{ post.date | date: "%d-%b-%Y"  }}
+            <a href="{{ post.url }}"><h4>{{ post.title }}</h4></a>
             <p>{{ post.content }}
-          </div>
         </li>
         {% endfor %}
-      </ul>   
       
       <hr />
       
@@ -59,4 +54,4 @@
 
     </div>
   
-  </body>
+ </body>
