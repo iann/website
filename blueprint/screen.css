@@ -106,7 +106,7 @@ form.inline p {margin-bottom:0;}
 /* grid.css */
 .topbar {	width:100%;
 		margin:0 auto;
-		background: ##66FF33;
+		background:#66FF33;
 	}
 .container {width:950px;margin:0 auto;}
 .showgrid {background:url(src/grid.png);}
