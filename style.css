@@ -66,8 +66,6 @@ td { vertical-align: top; }
     Initializr styles
     http://verekia.com/initializr/responsive-template
     Author: Jonathan Verrecchia
-    Modified by: Ian Moriarty
-    For: ianmoriarty.com
    =================================================== */
 
 body{ font:16px/24px Helvetica, Helvetica Neue, Arial, sans-serif; }
@@ -78,19 +76,17 @@ body{ font:16px/24px Helvetica, Helvetica Neue, Arial, sans-serif; }
 }
 
 /* ===================
-    ALL: Redish Theme
+    ALL: Orange Theme
    =================== */
 
-#header-container{ border-bottom: 20px solid #dedede;
-                   border-right:  2px solid #dedede; 
-                   text-align: center;}
-#footer-container{ border-top:    20px solid #f9f9f9; }
-#main aside      { border-top:    20px solid #f9f9f9; }
+#header-container{ border-bottom: 20px solid #e44d26; }
+#footer-container{ border-top:    20px solid #e44d26; }
+#main aside      { border-top:    20px solid #e44d26; }
 
 #header-container,
 #footer-container,
 #main aside{
-	background:#f9f9f9;
+	background:#f16529;
 }
 
 #title{ color:white; }
@@ -104,15 +100,15 @@ body{ font:16px/24px Helvetica, Helvetica Neue, Arial, sans-serif; }
 
 nav a{
 	display:block;
-    padding:15px;
+	margin-bottom:10px;
+	padding:15px 0;
 
-	background:#ff0023;
+	background:#e44d26;
 	color:white;
 
 	text-align:center;
 	text-decoration:none;
-	font-weight: bold;
-    margin-top: 20px;
+	font-weight:bold;
 }
 
 nav a:hover, nav a:visited{
@@ -121,11 +117,6 @@ nav a:hover, nav a:visited{
 
 nav a:hover{
 	text-decoration:underline;
-}
-
-
-#header-container header.wrapper.clearfix img {
-        padding-top: 20px;
 }
 
 /* ==============
@@ -171,46 +162,18 @@ nav a:hover{
 
 /* ==|== media queries ====================================================== */
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 480px) {
 
 /* ====================
     INTERMEDIATE: Menu
    ==================== */
 	
-/*	nav a{
+	nav a{
 		float:left;
 		width:27%;
 		margin:0 1.7%;
 		padding:25px 2%;
 		margin-bottom:0;
-	}*/
-	
-	#container{
-	    overflow: hidden;
-	}
-	
-	#header-container{ 
-	    float: left;
-	    width: 330px;
-	    //height: 100%;
-	    margin-bottom: -5000px; 
-	    padding-bottom: 5000px; //quite a hack solution
-	    //display: block;
-	    //position: absolute;
-	    //width = 200px;
-	}
-	
-	#main-container{
-	    float: right;
-	    position: absolute;
-	    top: 0;
-	    max-width: 680px;
-        padding-left: 330px;
-    }
-	
-	#footer-container{
-
-	    //clear: both;
 	}
 	
 	nav li:first-child a{ margin-left:0;  }
@@ -228,11 +191,11 @@ nav a:hover{
 	}
 }
 
-/*@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 768px) {
 
 /* ====================
     WIDE: CSS3 Effects
-   ==================== *!/
+   ==================== */
 
 	#header-container,
 	#main aside{
@@ -243,7 +206,7 @@ nav a:hover{
 
 /* ============
     WIDE: Menu
-   ============ *!/
+   ============ */
 	
 	#title{
 		float:left;
@@ -256,7 +219,7 @@ nav a:hover{
 
 /* ============
     WIDE: Main
-   ============ *!/
+   ============ */
 
 	#main article{
 		float:left;
@@ -273,14 +236,14 @@ nav a:hover{
 
 /* ===============
     Maximal Width
-   =============== *!/
+   =============== */
 
 	.wrapper{
-		width:1026px; /* 1140px - 10% for margins *!/
+		width:1026px; /* 1140px - 10% for margins */
 		margin:0 auto;
 	}
 }
-*/
+
 /* ==|== print styles ======================================================= */
  
 @media print {
