@@ -191,42 +191,26 @@ nav a:hover{
 	}
 	
 	#container{
-	    //overflow: hidden;
 	    position: relative;
-	    //height:auto !important;
-	    //height: 100%;
 	    min-height: 100%;
-	    //position: relative;
 	}
 	
 	#header-container{ 
-
 	    float: left;
 	    width: 330px;
 	    height: 100%;
 	    min-height:100%;
-	    //margin: auto;
-	    //min-height: 500px;
-	    //margin-bottom: -5000px; 
-	    //padding-bottom: 5000px; //quite a hack solution
-	    //display: block;
-	    position: fixed;
-	    //width = 200px;
+	    position: fixed;    
 	}
 	
 	#main-container{
-	    //height: 100%;
-	    //min-height:100%;
 	    float: right;
 	    position: absolute;
-	    //top: 0;
 	    max-width: 680px;
         padding-left: 330px;
-        //position: relative;
     }
 	
-	#footer-container{
-        
+	#footer-container{    
     }
 	
 	#pulldown{
