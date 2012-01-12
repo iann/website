@@ -2,3 +2,4 @@
 *.*.un~
 *.espressostorage
 _site/
+*.swp
