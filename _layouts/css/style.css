@@ -70,7 +70,7 @@ td { vertical-align: top; }
     For: ianmoriarty.com
    =================================================== */
 
-body{ font:16px/24px Helvetica, Helvetica Neue, Arial, sans-serif; }
+body{ font:16px/24px 'Open Sans', Helvetica, Helvetica Neue, Arial, sans-serif; }
 
 .wrapper{
 	width:90%;
@@ -95,8 +95,6 @@ body{ font:16px/24px Helvetica, Helvetica Neue, Arial, sans-serif; }
 
 #title{ color:white; }
 
-::-moz-selection { background: #f16529; color: #fff; text-shadow: none; }
-::selection      { background: #f16529; color: #fff; text-shadow: none; }
 
 /* ==============
     MOBILE: Menu
