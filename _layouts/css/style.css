@@ -70,7 +70,10 @@ td { vertical-align: top; }
     For: ianmoriarty.com
    =================================================== */
 
+/* Typography */
+
 body{ font:16px/24px 'Open Sans', Helvetica, Helvetica Neue, Arial, sans-serif; }
+
 
 .wrapper{
 	width:90%;
