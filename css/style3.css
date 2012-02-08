@@ -95,6 +95,11 @@ body{ font:16px/24px 'Open Sans', Helvetica, Helvetica Neue, Arial, sans-serif; 
 
 #title{ color:white; }
 
+blockquote {
+    border-left: solid;
+    border-width: 5px;
+    border-color: #FF0023;
+}
 
 /* ==============
     MOBILE: Menu
