@@ -198,12 +198,10 @@ nav a:hover{
 	    width: 330px;
 	    height: 100%;
 	    min-height:100%;
-	    position: fixed;    
 	}
 	
 	#main-container{
 	    float: right;
-	    position: absolute;
 	    max-width: 680px;
         padding-left: 330px;
     }
@@ -211,10 +209,6 @@ nav a:hover{
 	#footer-container{    
     }
 	
-	#pulldown{
-	    position: relative;
-	    clear: both;
-	}
 	
 	
 	nav li:first-child a{ margin-left:0;  }
