@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2012-02-08
-title: I'll call your 1mm and raise you a Retnia Display
+title: I'll call your 1mm and raise you a Retina Display
 ---
 
 [Alleged iPad 3 casing photo appears, sources say coming soon with improved GPU but no quad-core, thicker profile](http://www.theverge.com/2012/2/8/2785486/ipad-3-back-photo-appears-a6-retina-display "The Verge")
