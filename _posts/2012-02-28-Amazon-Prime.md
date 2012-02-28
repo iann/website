@@ -17,4 +17,4 @@ Amazon Prime Memebers:
 
 >92% of Prime members plan to renew their membership.
 
-I love Amazon Prime. For someone who is busy and has no time to shop around or go to stores even it is a perfect companion.  I buy everything I can through Amazon and I want to buy more -- ahem -- [Amazon Fresh]("http://fresh.amazon.com/") come to Boston. Please.
+I love Amazon Prime. For someone who is busy and has no time to shop around or go to stores it is a perfect companion.  I buy everything I can through Amazon and I want to buy more -- ahem -- [Amazon Fresh]("http://fresh.amazon.com/") come to Boston. Please.
