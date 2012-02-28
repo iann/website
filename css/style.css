@@ -102,6 +102,10 @@ blockquote {
     padding-left: 12px;
 }
 
+#main article header blockquote p {
+    margin-top: 0px;
+}
+
 /* ==============
     MOBILE: Menu
    ============== */
