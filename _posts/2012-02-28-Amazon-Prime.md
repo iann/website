@@ -4,7 +4,7 @@ date: 2012-02-28
 title: Amazon Prime Rocks
 ---
 
-[Data Monday: Amazon Prime]("http://www.lukew.com/ff/entry.asp?1508")
+[Data Monday: Amazon Prime](http://www.lukew.com/ff/entry.asp?1508)
 
 Amazon Prime Memebers: 
 >Increase their purchases on Amazon from $400 a year to $900 a year after they join.
