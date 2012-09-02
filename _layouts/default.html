@@ -6,25 +6,21 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
     <title>Ian Moriarty{% if page.title %} | {{ page.title }}{% endif %}</title>
     <meta name="description" content="">
     <meta name="author" content="">
-
     <meta name="viewport" content="width=device-width,initial-scale=1">
-
     <link rel="stylesheet" href="/css/style.css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-
-
-    <script src="/js/libs/modernizr-2.0.6.min.js"></script>
+    <script type="text/javascript" src="/js/libs/modernizr-2.0.6.min.js"></script>
+    <script type="text/javascript" src="/js/libs/raphael-min.js"></script>
 </head>
 <body>
-
     <div id="container">
         <div id="header-container">
             <header class="wrapper clearfix">
-            <a href="/"><img src="/img/logo.png" alt="Ian Moriarty"></a>
+            <div id="logo">
+            </div>
                 <nav>
                     <ul>
                         <li><a href="#">about</a></li>
@@ -41,21 +37,16 @@
                 <article>
                     {{ content }}
                 </article>
-               
                <div id="footer-container">
                    <footer class="wrapper clearfix">
                        <h3>footer</h3>
                    </footer>
                </div> 
             </div> <!-- #main -->
-            
-
-            
         </div> <!-- #main-container -->
-<!--        <div id="pulldown">
-            <h2>hello world</h2>
-        </div>-->
-    </div> <!-- #container -->   
-        {% include production/analytics.html %}
+    </div> <!-- #container --> 
+    <script type="text/javascript" src="/js/logo-min.js"></script>
+    <script type="text/javascript" src="/js/font/gloria_hallelujah.font.js"></script>
+    {% include production/analytics.html %}
 </body>
 </html>
