@@ -1,0 +1,1 @@
+var paper=Raphael("logo",304,304);paper.circle(152,152,150).attr({fill:"#ff0023",stroke:"#dedede","stroke-width":"2"}),paper.print(64,124,"ian",paper.getFont("Gloria Hallelujah"),120).attr({fill:"#fff"}),paper.print(10,190,"moriarty",paper.getFont("Gloria Hallelujah"),64).attr({fill:"#fff"});
