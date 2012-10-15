@@ -23,7 +23,7 @@ function progressbar (endDate, currentDate, totalInterval) {
 function updateCounts (){
   var startDate     =   1346472000000;
       currentDate   =   new Date(),
-      endDate       =   1355288400000;
+      endDate       =   1355428800000;
       totalInterval =   9075600000;
 
   progressbar(endDate, currentDate, totalInterval); //draw prog bar
