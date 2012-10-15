@@ -23,14 +23,12 @@ function progressbar (endDate, currentDate, totalInterval) {
 function updateCounts (){
   var startDate     =   1346472000000;
       currentDate   =   new Date(),
-      endDate       =   1355547600000;
+      endDate       =   1355288400000;
       totalInterval =   9075600000;
 
   progressbar(endDate, currentDate, totalInterval); //draw prog bar
   $("#daysComp").text(daysDifferential(startDate,currentDate));
   $("#daysLeft").text(daysDifferential(currentDate,endDate));
-  console.log(); //days comp
-  console.log(); //days left
 }
 updateCounts();
 setInterval(updateCounts, 1000);
