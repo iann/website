@@ -14,9 +14,9 @@ body, button, input, select, textarea { font-family: sans-serif; color: #222; }
 ::-moz-selection { background: #fe57a1; color: #fff; text-shadow: none; }
 ::selection { background: #fe57a1; color: #fff; text-shadow: none; }
 
-a { color: #00e; }
-a:visited { color: #551a8b; }
-a:hover { color: #06e; }
+a { color: #000000; }
+a:visited { color: black; }
+a:hover { color: #ff0023; }
 a:focus { outline: thin dotted; }
 a:hover, a:active { outline: 0; }
 
@@ -70,10 +70,7 @@ td { vertical-align: top; }
     For: ianmoriarty.com
    =================================================== */
 
-/* Typography */
-
 body{ font:16px/24px 'Open Sans', Helvetica, Helvetica Neue, Arial, sans-serif; }
-
 
 .wrapper{
 	width:90%;
@@ -98,6 +95,16 @@ body{ font:16px/24px 'Open Sans', Helvetica, Helvetica Neue, Arial, sans-serif; 
 
 #title{ color:white; }
 
+blockquote {
+    border-left: solid;
+    border-width: 5px;
+    border-color: #FF0023;
+    padding-left: 12px;
+}
+
+#main article header blockquote p {
+    margin-top: 0px;
+}
 
 /* ==============
     MOBILE: Menu
@@ -205,8 +212,7 @@ nav a:hover{
 	}
 	
 	#main-container{
-	    float: right;
-	    position: absolute;
+	    float: left;
 	    max-width: 680px;
         padding-left: 330px;
     }
