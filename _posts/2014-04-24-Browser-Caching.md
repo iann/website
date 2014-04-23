@@ -1,9 +1,7 @@
 ---
-
 title:   Browser Caching
 author:  Ian Moriarty  
-date:   2014-04-22
-
+date:    2014-04-22
 ---
 
 # Browser Caching
@@ -36,21 +34,23 @@ Server: Apache-Coyote/1.1
 Vary: Accept-Encoding
 ```
 
-## Headers
+## Cache Headers
 The full specificaion on HTTP/1.1 caching header directives can be found here [\[1\]](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14).
 
-> `public` -- Indicates that the response MAY be cached by any cache, even if it would normally be non-cacheable or cacheable only within a non- shared cache.
+> `public` -- Indicates that the response MAY be cached by any cache, even if it would normally be non-cacheable or cacheable only within a non-shared cache.
+
+In some versions of Firefox if public is not set on HTTPS traffic no disk caching will take place [\[2\]](https://developers.google.com/speed/docs/best-practices/caching).
 
 > `private` -- Indicates that all or part of the response message is intended for a single user and MUST NOT be cached by a shared cache. This allows an origin server to state that the specified parts of the
 response are intended for only one user and are not a valid response for requests by other users. A private (non-shared) cache MAY cache the response.
 
 HTTP has many mechanisms to help speed up request to response latency through caches. Caches can be both private and public. An example of a public cache would be a Squid proxy running on a corporate network or an Internet Service Provider (ISP) caching common website assets. A private cache could be a clients local (browser) cache.
 
-Mark Nottingham summarizes a few more directives [\[2\]](http://www.mnot.net/cache_docs/):
+Mark Nottingham summarizes a few more directives [\[3\]](http://www.mnot.net/cache_docs/):
 
 > `max-age` [seconds] -- specifies the maximum amount of time that a representation will be considered fresh. Similar to Expires, this directive is relative to the time of the request, rather than absolute. [seconds] is the number of seconds from the time of the request you wish the representation to be fresh for. 
 
-`max-age` is a stong validator. Within the asset's max-age time the client _will not_ make further requests to the server until the max-age has expired. That is, the cached version of the file will be used without consulting with the server for an updated asset until the `max-age` time has elapsed.
+`max-age` is a stong validator. Within the asset's max-age time the client **will not** make further requests to the server until the max-age has expired. That is, the cached version of the file will be used without consulting with the server for an updated asset until the `max-age` time has elapsed.
 
 > `s-maxage` [seconds] -- similar to max-age, except that it only applies to shared (e.g., proxy) caches.
 
@@ -60,7 +60,7 @@ This directive can be sent by both the client (request) and the server (response
 
 When sent with the request by the client this directive instructs the upstream proxies  to _revalidate_ cached copies with the origin server. The response must not be a cached copy.
 
-Conversely, when `no-cache` is sent with the response from the server the server is instructing the browser to _revalidate_ the asset before using a locally cached copy.
+Conversely, when `no-cache` is sent with the response from the server the server is instructing the browser to **revalidate** the asset before using a locally cached copy.
 
 > `no-store` -- instructs caches not to keep a copy of the representation under any conditions.
 
@@ -70,22 +70,27 @@ Conversely, when `no-cache` is sent with the response from the server the server
 
 > `proxy-revalidate` -- similar to must-revalidate, except that it only applies to proxy caches.
 
-Mobify [\[3\]](https://www.mobify.com/blog/beginners-guide-to-http-cache-headers/) defines other common header directives:
+Mobify [\[4\]](https://www.mobify.com/blog/beginners-guide-to-http-cache-headers/) defines other common header directives:
 
 > `expires` -- Back in the day, this was the standard way to specify when an asset expired, and is just a basic date-time stamp. It is still fairly useful for older user agents, which cryptowebologists assure us still roam in the uncharted territories. On most modern systems, the "cache-control" headers "max-age" and "s-maxage" will take precedence, but it's always good practice to set a matching value here for compatibility. 
 
-The expires header is a strong validator. With an expires header the client _will not_ request a new asset until after the expiration date. [\[2\]](http://www.mnot.net/cache_docs/)
+The expires header is a strong validator. With an expires header the client **will not** request a new asset until after the expiration date. [\[2\]](http://www.mnot.net/cache_docs/)
 
 > The Expires header can’t be circumvented; unless the cache (either browser or proxy) runs out of room and has to delete the representations, the cached copy will be used until then.
 
-Setting far in the future expires dates can be dangerous if the underlying asset changes. Since the client will not talk to the server until after the expiration date it will always used the locally cached copy until that point. This senario is called a poison cache and a cache busting technique (described below) must be used to break out of it. 
+Setting far in the future expires dates can be dangerous if the underlying asset changes often. Since the client will not talk to the server until after the expiration date it will always used the locally cached copy until that point. When a page breaks due to incorect caching policies it is called a poison cache senario and a cache busting technique (described below) must be used to break out of it. 
 
 > `no-transform` -- “Transform into what?”, you’re surely asking. Some proxies will convert image formats and other documents to improve performance. Presumably this was thought to be a feature that you should have to opt out of. If you don’t like the idea of your CDN making automated guesses about how your content should be encoded or formatted, I suggest including this header.
 
 > `etag` -- Short for "entity-tag", the etag is a unique identifier for the resource being requested, typically comprised of the hash of that resource, or a hash of the timestamp the resource was updated. Basically, this lets a client ask smarter questions of the CDNs, like "give me X if it's different than the etag I already have."
 
-TODO: explain etag:
+An `etag` is a file validator and a weak caching header. If a cached object is not due to be refreshed from the server it will make no difference if the etags do not match. An `etag` should be used in addition to other caching headers.
 
+> `last-modified` -- This header defines the last time the file was modified. This normally corresponds to the asset's timestamp. Many servers include this header in a response and the client uses this as a file validator and weak cache header.
+
+Similar to `etag`, `last-modified` is a file validator and should be used with other cachine headers.
+
+`etag` and `last-modified` can be used to save on bandwidth. When a cache expires the browser will make a new `GET` request for that asset. If the asset has an `etag` or `last-modified` it will send `if-none-match` or `if-modified-since` headers with the request, respectively. If the `etag` has not changed or the modification date is less than or equal to the cached asset the server will respond with `304 Not Modified` with no content in the body. Presumably, a server will respond with `max-age` or a new `expires` date and the client will not request again until that time has elapsed.
 
 ## Cachine Strategies
 
@@ -95,11 +100,14 @@ TODO: cite
 
 > The most effective solution is to change any links to them; that way, completely new representations will be loaded fresh from the origin server. Remember that any page that refers to these representations will be cached as well. Because of this, it’s best to make static images and similar representations very cacheable, while keeping the HTML pages that refer to them on a tight leash.
 
+# Interesting Edge Cases
+
 ## Resoucres
 
 * [1] http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14
-* [2] http://www.mnot.net/cache_docs/
-* [3] https://www.mobify.com/blog/beginners-guide-to-http-cache-headers/
+* [2] https://developers.google.com/speed/docs/best-practices/caching
+* [3] http://www.mnot.net/cache_docs/
+* [4] https://www.mobify.com/blog/beginners-guide-to-http-cache-headers/
 * 
 * [3] https://developers.google.com/speed/docs/best-practices/caching
 * https://developers.google.com/speed/articles/gzip?hl=en
