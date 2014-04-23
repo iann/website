@@ -8,7 +8,7 @@ title: I'll call your 1mm and raise you a Retina Display
 
 The iPad 3 rumor mill is heating up. From the Verge's Joshua Topolsky:
 
->The new iPad will be touting that double resolution display — a true iPad Retina Display, clocking in at 2048 x 1536 — the device will be nearly physically identical to its predecessor, but the slate will be about one millimeter thicker overall.
+> The new iPad will be touting that double resolution display — a true iPad Retina Display, clocking in at 2048 x 1536 — the device will be nearly physically identical to its predecessor, but the slate will be about one millimeter thicker overall.
 
 I know I'm not the only one that will gladly take a little thicker device for a 2048 x 1536 pixel display. Think about how nice typography will look.
 
