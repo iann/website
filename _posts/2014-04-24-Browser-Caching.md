@@ -1,7 +1,7 @@
 ---
 title:   Browser Caching
 author:  Ian Moriarty  
-date:    2014-04-22
+date:    2014-04-24
 ---
 
 # Browser Caching
@@ -94,11 +94,25 @@ Similar to `etag`, `last-modified` is a file validator and should be used with o
 
 ## Cachine Strategies
 
+There are two general strategies when it comes to caching.  I have dubbed these "forever" and "continuous". 
+
+Google recommends the "forever" technique. In this technique one sets their cache to as long as possible (maximum 1 year) to ensure the most effecient caching takes place. If a file change takes place the client is forced to download the latest file, this is done by dynamically changing the name of the file based on its contents. This step ideally would be automated in a build step.
+
+Example cache headers would be:
+
+```
+cache-control:public, max-age=31536000
+date:Wed, 23 Apr 2014 20:53:12 GMT
+expires:Thu, 23 Apr 2015 20:53:12 GMT
+last-modified:Wed, 09 Oct 2013 01:35:39 GMT
+```
+
+The other strategy is to have a continuous caching strategy.
+
+
 ## Cache Busting
 
-TODO: cite
-
-> The most effective solution is to change any links to them; that way, completely new representations will be loaded fresh from the origin server. Remember that any page that refers to these representations will be cached as well. Because of this, it’s best to make static images and similar representations very cacheable, while keeping the HTML pages that refer to them on a tight leash.
+> The most effective solution is to change any links to them; that way, completely new representations will be loaded fresh from the origin server. Remember that any page that refers to these representations will be cached as well. Because of this, it’s best to make static images and similar representations very cacheable, while keeping the HTML pages that refer to them on a tight leash. [\[2\]](http://www.mnot.net/cache_docs/)
 
 # Interesting Edge Cases
 
