@@ -1,7 +1,7 @@
 ---
 title:   Browser Caching
 author:  Ian Moriarty  
-date:    2014-04-24
+date:   2014-04-24
 ---
 
 # Browser Caching
@@ -94,27 +94,69 @@ Similar to `etag`, `last-modified` is a file validator and should be used with o
 
 ## Cachine Strategies
 
-There are two general strategies when it comes to caching.  I have dubbed these "forever" and "continuous". 
+There are two general strategies when it comes to caching.  I have dubbed these *somtimes*, *always* and *never*. 
 
-Google recommends the "forever" technique. In this technique one sets their cache to as long as possible (maximum 1 year) to ensure the most effecient caching takes place. If a file change takes place the client is forced to download the latest file, this is done by dynamically changing the name of the file based on its contents. This step ideally would be automated in a build step.
+### Somtimes
+
+The other strategy is to have a continuous caching strategy. One does not want to completely eliminate the benefits of caching but files are updated often enough that assets can not be stale long amounts of time. These variables can be tweaked but here is an example Amazon S3 uses for static assets.
+
+```
+cache-control: no-transform,public,max-age=300,s-maxage=900
+date: Wed, 23 Apr 2014 20:53:12 GMT
+etag: "bbea5db7e1785119a7f94fdd504c546e"
+last-modified: Thu, 17 Apr 2014 22:33:18 GMT
+Server: AmazonS3
+vary: Accept-Encoding
+```
+
+We can see that S3 tells intermediate caches to hold onto content for 900 seconds while clients should keep content for 300 seconds. The average active session can be another useful value for cache time. It is important to have either an `etag` or `last-modified` set because we can benefit from a `304 Not Modified` response.
+
+### Always
+
+Google recommends the "always" technique. In this technique one sets their cache to as long as possible (maximum 1 year) to ensure the most effecient caching takes place. If a file change takes place the client is forced to download the latest file, this is done by dynamically changing the name of the file based on its contents. This step ideally would be automated in a build step.
 
 Example cache headers would be:
 
 ```
-cache-control:public, max-age=31536000
-date:Wed, 23 Apr 2014 20:53:12 GMT
-expires:Thu, 23 Apr 2015 20:53:12 GMT
-last-modified:Wed, 09 Oct 2013 01:35:39 GMT
+cache-control: public, max-age=31536000
+date: Wed, 23 Apr 2014 20:53:12 GMT
+expires: Thu, 23 Apr 2015 20:53:12 GMT
+last-modified: Wed, 09 Oct 2013 01:35:39 GMT
 ```
 
-The other strategy is to have a continuous caching strategy.
+### Never
 
+This strategy is useful if the asset should never be kept in local or intermediate caches.
+
+```
+cache-control: private, max-age=0, no-cache, no-store
+pragma: no-cache
+date: Wed, 23 Apr 2014 20:53:12 GMT
+expires: Wed, 23 Apr 2014 20:53:12 GMT
+```
+
+Of course, if the traffic is over HTTPS intermediate caches can not cache assets.
 
 ## Cache Busting
 
 > The most effective solution is to change any links to them; that way, completely new representations will be loaded fresh from the origin server. Remember that any page that refers to these representations will be cached as well. Because of this, it’s best to make static images and similar representations very cacheable, while keeping the HTML pages that refer to them on a tight leash. [\[2\]](http://www.mnot.net/cache_docs/)
 
-# Interesting Edge Cases
+## Interesting Edge Cases
+
+A place to keep an ongoing log of interesting cacheing strategies. Use [REDbot](http://redbot.org/) on a URL to see possible caching pitfalls. 
+
+### Browser Caching Heuristic
+
+According to the spec, when a server sends partial caching headers then the client has to decide the correct caching strategy [\[5\]](http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html). An example is when no `expires` or `cache-control` headers are set, but file validation `last-modified` or `etag` are sent. The client will apply a heuristic expiration to the asset.
+
+Firefox and Chrome currently implement the following heuristic.
+
+```c
+if (last_modified_value <= date_value)
+    return (date_value - last_modified_value) / 10;
+```
+
+Where `last_modified_value` is the `last-modified` header and `date_value` is the date returned in the response header or the clients  current datetime.
 
 ## Resoucres
 
@@ -122,7 +164,7 @@ The other strategy is to have a continuous caching strategy.
 * [2] https://developers.google.com/speed/docs/best-practices/caching
 * [3] http://www.mnot.net/cache_docs/
 * [4] https://www.mobify.com/blog/beginners-guide-to-http-cache-headers/
-* 
+* [5] http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html
 * [3] https://developers.google.com/speed/docs/best-practices/caching
 * https://developers.google.com/speed/articles/gzip?hl=en
 * http://blog.maxcdn.com/accept-encoding-its-vary-important/
