@@ -1,15 +1,19 @@
 ---
+
 title:   Browser Caching
 author:  Ian Moriarty  
-date:   2014-04-24
+date:    2014-04-24
+
 ---
 
 # Browser Caching
 
 ## Overview
+
 Many assets on webpages are static files (Javascript, CSS, images, etc). This type of content can and should be cached. Caching saves on bandwidth and provides a better user experience. The HTTP Specification allows for caching at many levels. This arcticle will focus primarily on Request (User Agent / Client) and Response Headers (Server).
 
 ## Protocol
+
 When a client requests an asset on a web server it sends a `GET` request to the server. Along with the `GET` request the client sends additional information about the request. The additional infomration is contined in the beginning or head of the file as such these properties are called `Headers`. The response from the server also contains Headers.
 
 Here's an example of a request headers:
@@ -35,6 +39,7 @@ Vary: Accept-Encoding
 ```
 
 ## Cache Headers
+
 The full specificaion on HTTP/1.1 caching header directives can be found here [\[1\]](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14).
 
 > `public` -- Indicates that the response MAY be cached by any cache, even if it would normally be non-cacheable or cacheable only within a non-shared cache.
@@ -152,11 +157,11 @@ According to the spec, when a server sends partial caching headers then the clie
 Firefox and Chrome currently implement the following heuristic.
 
 ```c
-if (last_modified_value <= date_value)
-    return (date_value - last_modified_value) / 10;
+if (last_modified_value <= date_value) {
+    return (date_value - last_modified_value) / 10;}    
 ```
 
-Where `last_modified_value` is the `last-modified` header and `date_value` is the date returned in the response header or the clients  current datetime.
+Where `last_modified_value` is the `last-modified` header and `date_value` is the date returned in the response header or the clients  current datetime. The calculated value is then set to that assets `max-age`.
 
 ## Resoucres
 
