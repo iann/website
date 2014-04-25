@@ -97,7 +97,7 @@ Similar to `etag`, `last-modified` is a file validator and should be used with o
 
 `etag` and `last-modified` can be used to save on bandwidth. When a cache expires the browser will make a new `GET` request for that asset. If the asset has an `etag` or `last-modified` it will send `if-none-match` or `if-modified-since` headers with the request, respectively. If the `etag` has not changed or the modification date is less than or equal to the cached asset the server will respond with `304 Not Modified` with no content in the body. Presumably, a server will respond with `max-age` or a new `expires` date and the client will not request again until that time has elapsed.
 
-## Cachine Strategies
+## Caching Strategies
 
 There are three general strategies when it comes to caching.  I have dubbed these *sometimes*, *always* and *never*. 
 
