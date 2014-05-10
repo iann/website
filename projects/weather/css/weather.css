@@ -10,3 +10,21 @@ body {
   width: 600px;
   padding: 10px 20px;
 }
+
+.front-row {
+  font-size: 240px;
+}
+
+.center-text {
+  text-align: center;
+  padding: 0px 0px 10px 0px;
+}
+
+.jumbotron {
+  padding-bottom: 40px;
+}
+
+.chart-center {
+  margin:0 auto;
+  display: block;
+}

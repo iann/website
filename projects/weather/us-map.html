@@ -99,11 +99,11 @@
     <div class="container">
 
       <div class="starter-template">
-        <h1>ISD-Lite Data Set</h1>
-        <p class="lead">Visulaizations of NOAA's Integrated Surface Database (ISD)</p>
+        <h1>Weather Stations</h1>
+        <p class="lead">Located in United States</p>
       </div>
       <div class="center-block">
-        <div id="map"></div>
+        <div id="map" class="center-block"></div>
         <div class="caption center-block"><p>The map above shows the geographical locations for all the weather stations participating in the Integrated Surface Database (ISD) program.
         The map above shows the geographical locations for all the weather stations participating in the Integrated Surface Database (ISD) program.
         </p></div>
@@ -137,6 +137,7 @@
       var svg = d3.select("#map").append("svg")
         .attr("width", width)
         .attr("height", height)
+        .attr("class", "chart-center")
         .on("click", stopped, true);
 
       svg.append("rect")
