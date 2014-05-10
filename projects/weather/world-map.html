@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ISD-Lite Data Visulatiztion">
+    <meta name="author" content="Ian Moriarty">
+
+    <title>ISD-Lite Data Visulatiztion</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/weather.css" rel="stylesheet">
+    <style>
+      .graticule {
+        fill: none;
+        stroke: #777;
+        stroke-width: .5px;
+        stroke-opacity: .5;
+      }
+
+      .land {
+        fill: #222;
+      }
+
+      .boundary {
+        fill: none;
+        stroke: #fff;
+        stroke-width: .5px;
+      }
+    </style>
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href=".">ISD Data</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown active">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Maps <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li class="dropdown-header">US</li>
+                <li><a href="us-map.html">Stations</a></li>
+                <li><a href="us-map-time.html">Stations with Age</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">World</li>
+                <li class="active"><a href="world-map.html">Stations</a></li>
+                <li><a href="#">Stations with Age</a></li>
+              </ul>
+            </li>
+            <li><a href="#charts">Charts</a></li>
+            <li><a href="#about">About</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="starter-template">
+        <h1>Weather Stations</h1>
+        <p class="lead">Located in United States</p>
+      </div>
+      <div class="center-block">
+        <div id="map" class="center-block"></div>
+        <div class="caption center-block"><p>The map above shows the geographical locations for all the weather stations participating in the Integrated Surface Database (ISD) program.
+        The map above shows the geographical locations for all the weather stations participating in the Integrated Surface Database (ISD) program.
+        </p></div>
+      </div>
+    </div>
+
+    <script src="js/vendor/jquery-2.1.1.min.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/d3.js"></script>
+    <script src="js/vendor/d3.hexbin.v0.min.js"></script>
+    <script src="js/vendor/queue.v1.min.js"></script>
+    <script src="js/vendor/topojson.v1.min.js"></script>
+    <script>
+      var width = 960,
+          height = 500;
+
+      var projection = d3.geo.equirectangular()
+          .scale(153)
+          .translate([width / 2, height / 2])
+          .precision(.1);
+
+      var path = d3.geo.path()
+          .projection(projection);
+
+      var graticule = d3.geo.graticule();
+
+      var svg = d3.select("#map").append("svg")
+          .attr("width", width)
+          .attr("height", height)
+          .attr("class", "chart-center");
+
+      svg.append("path")
+          .datum(graticule)
+          .attr("class", "graticule")
+          .attr("d", path);
+
+      d3.json("maps/world-50m.json", function(error, world) {
+        svg.insert("path", ".graticule")
+            .datum(topojson.feature(world, world.objects.land))
+            .attr("class", "land")
+            .attr("d", path);
+
+        svg.insert("path", ".graticule")
+            .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+            .attr("class", "boundary")
+            .attr("d", path);
+      });
+
+      d3.select(self.frameElement).style("height", height + "px");
+
+    </script>
+  </body>
+</html>
