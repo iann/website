@@ -31,6 +31,12 @@
         stroke: #fff;
         stroke-width: .5px;
       }
+
+      .points {
+          fill: red;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+      }
     </style>
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -65,7 +71,7 @@
                 <li><a href="us-map-time.html">Stations with Age</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">World</li>
-                <li class="active"><a href="world-map.html">Stations</a></li>
+                <li class="active"><a href="#">Stations</a></li>
                 <li><a href="#">Stations with Age</a></li>
               </ul>
             </li>
@@ -106,6 +112,7 @@
           .precision(.1);
 
       var path = d3.geo.path()
+          .pointRadius(.5)
           .projection(projection);
 
       var graticule = d3.geo.graticule();
@@ -120,17 +127,27 @@
           .attr("class", "graticule")
           .attr("d", path);
 
-      d3.json("maps/world-50m.json", function(error, world) {
-        svg.insert("path", ".graticule")
+      queue()
+        .defer(d3.json, "maps/world-50m.json")
+        .defer(d3.csv, "data/worldcords.csv")
+        .await(ready);
+
+      function ready(error, world, stations) {
+        svg.append("path", ".graticule")
             .datum(topojson.feature(world, world.objects.land))
             .attr("class", "land")
             .attr("d", path);
 
-        svg.insert("path", ".graticule")
+        svg.append("path", ".graticule")
             .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
             .attr("class", "boundary")
             .attr("d", path);
-      });
+
+        svg.append("path")
+          .datum({type: "MultiPoint", coordinates: stations})
+          .attr("class", "points")
+          .attr("d", path);
+      };
 
       d3.select(self.frameElement).style("height", height + "px");
 
