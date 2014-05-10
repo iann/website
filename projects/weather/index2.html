@@ -64,7 +64,7 @@
                 .defer(d3.csv, "data/uscords.csv")
                 .await(ready);
 
-            function ready(error, us, airports) {
+            function ready(error, us, stations) {
               svg.append("path")
                   .datum(topojson.feature(us, us.objects.land))
                   .attr("class", "land")
@@ -76,7 +76,7 @@
                   .attr("d", path);
 
               svg.append("path")
-                  .datum({type: "MultiPoint", coordinates: airports})
+                  .datum({type: "MultiPoint", coordinates: stations})
                   .attr("class", "points")
                   .attr("d", path);
             }
