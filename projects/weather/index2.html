@@ -60,7 +60,7 @@
                 .attr("height", height);
 
             queue()
-                .defer(d3.json, "us.json")
+                .defer(d3.json, "maps/us.json")
                 .defer(d3.csv, "data/uscords.csv")
                 .await(ready);
 
