@@ -21,17 +21,17 @@
       }
 
       .feature {
-        fill: #ccc;
+        fill: #222;
         cursor: pointer;
       }
 
       .feature.active {
-        fill: orange;
+        fill: #101010;
       }
 
       .mesh {
         fill: none;
-        stroke: #fff;
+        stroke: #777;
         stroke-linecap: round;
         stroke-linejoin: round;
       }
@@ -47,7 +47,7 @@
       }
 
       .points {
-          fill: #222;
+          fill: red;
           stroke-linecap: round;
           stroke-linejoin: round;
       }
@@ -131,7 +131,7 @@
         .on("zoom", zoomed);
 
       var path = d3.geo.path()
-        .pointRadius(.5)
+        .pointRadius(1)
         .projection(projection);
 
       var svg = d3.select("#map").append("svg")
@@ -208,7 +208,7 @@
         g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
         window.scale = d3.event.scale;
         g.selectAll(".points")
-          .attr('d', path.pointRadius(function(d) {return 1.5/window.scale; }));
+          .attr('d', path.pointRadius(function(d) {return 1/window.scale; }));
       }
 
       // If the drag behavior prevents the default click,

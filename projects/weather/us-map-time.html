@@ -21,12 +21,12 @@
       }
 
       .land {
-        fill: #ddd;
+        fill: #222;
       }
 
       .states,
       .hexagons path {
-        stroke: #fff;
+        stroke: #777;
       }
 
     </style>
@@ -100,8 +100,8 @@
           parseDate = d3.time.format("%Y%m%d").parse;
 
       var color = d3.time.scale()
-          .domain([new Date(1901, 0, 1), new Date(2014, 0, 1)])
-          .range(["black", "orange"])
+          .domain([new Date(1900, 0, 1), new Date(2014, 0, 1)])
+          .range(["black", "white"])
           .interpolate(d3.interpolateLab);
 
       var hexbin = d3.hexbin()
