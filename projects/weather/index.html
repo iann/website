@@ -19,12 +19,16 @@
             }
 
             .land {
-              fill: #ddd;
+              fill: #222;
             }
 
             .states {
               fill: none;
               stroke: #fff;
+              stroke-width: .5px;
+            }
+            .points{
+                fill: red;
             }
         </style>
     </head>
@@ -38,7 +42,7 @@
         <script src="js/vendor/jquery-2.1.1.min.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
-        <script src="js/vendor/d3.v3.min.js"></script>
+        <script src="js/vendor/d3.js"></script>
         <script src="js/vendor/queue.v1.min.js"></script>
         <script src="js/vendor/topojson.v1.min.js"></script>
         <script>
@@ -57,7 +61,7 @@
 
             queue()
                 .defer(d3.json, "us.json")
-                .defer(d3.tsv, "readme-airports.tsv")
+                .defer(d3.csv, "data/uscords.csv")
                 .await(ready);
 
             function ready(error, us, airports) {
