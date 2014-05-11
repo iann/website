@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ISD-Lite Data Visulatiztion">
+    <meta name="author" content="Ian Moriarty">
+
+    <title>ISD-Lite Data Visulatiztion</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/nv.d3.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/weather.css" rel="stylesheet">
+    <style>
+      .background {
+        fill: none;
+        pointer-events: all;
+      }
+
+      .feature {
+        fill: #222;
+        cursor: pointer;
+      }
+
+      .feature.active {
+        fill: #101010;
+      }
+
+      .mesh {
+        fill: none;
+        stroke: #777;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .land {
+        fill: #ddd;
+      }
+
+      .states {
+        fill: none;
+        stroke: #fff;
+        stroke-width: .5px;
+      }
+
+      .points {
+          fill: red;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+      }
+    </style>
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href=".">ISD Data</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown active">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Maps <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li class="dropdown-header">US</li>
+                <li class="active"><a href="us-map.html">Stations</a></li>
+                <li><a href="us-map-time.html">Stations with Age</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">World</li>
+                <li><a href="world-map.html">Stations</a></li>
+                <li><a href="#">Stations with Age</a></li>
+              </ul>
+            </li>
+            <li><a href="#charts">Charts</a></li>
+            <li><a href="#about">About</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="starter-template">
+        <h1>Logan Weather Data</h1>
+        <p class="lead">Located in East Boston, MA</p>
+      </div>
+      <div class="center-block">
+        <div id="chart1" class="center-block"></div>
+        <div class="caption center-block"><p>The map above shows the geographical locations for all the weather stations participating in the Integrated Surface Database (ISD) program.
+        The map above shows the geographical locations for all the weather stations participating in the Integrated Surface Database (ISD) program.
+        </p></div>
+      </div>
+    </div><!-- /.container -->
+
+    <script src="js/vendor/jquery-2.1.1.min.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/d3.js"></script>
+    <script src="js/vendor/nv.d3.js"></script>
+    <script>
+    var width = 960,
+      height = 500,
+      active = d3.select("null");
+
+    d3.json('data/logan-2013.json', function (data) {
+      nv.addGraph(function() {
+          var height = 500;
+          var width = 960;
+          var chart = nv.models.multiBarChart()
+            .transitionDuration(350)
+            .reduceXTicks(true)   //If 'false', every single x-axis tick label will be rendered.
+            .rotateLabels(0)      //Angle to rotate x-axis labels.
+            .showControls(false)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
+            .groupSpacing(0.1)    //Distance between each group of bars.
+            .stacked(false)
+          ;
+
+          // chart.xAxis
+          //     .tickFormat(d3.format('c'));
+
+          // chart.yAxis
+          //     .tickFormat(d3.format(',f'));
+
+          d3.select('#chart1')
+              .datum(data)
+              .append("svg")
+              .attr("height", height)
+              .call(chart);
+
+          nv.utils.windowResize(chart.update);
+
+          return chart;
+      });
+    });
+    </script>
+  </body>
+</html>
