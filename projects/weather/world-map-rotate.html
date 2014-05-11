@@ -103,53 +103,84 @@
     <script src="js/vendor/topojson.v1.min.js"></script>
     <script>
       var width = 960,
-          height = 500;
+          height = 720,
+          speed = 1e-2,
+          start = Date.now();
 
-      var projection = d3.geo.equirectangular()
-          .scale(153)
+      var sphere = {type: "Sphere"};
+
+      var projection = d3.geo.orthographic()
+          .scale(height / 2.1)
           .translate([width / 2, height / 2])
-          .precision(.1);
-
-      var path = d3.geo.path()
-          .pointRadius(.5)
-          .projection(projection);
+          .clipAngle(90)
+          .precision(.5);
 
       var graticule = d3.geo.graticule();
 
-      var svg = d3.select("#map").append("svg")
+      var canvas = d3.select("#map").append("canvas")
           .attr("width", width)
-          .attr("height", height)
-          .attr("class", "chart-center");
+          .attr("class", "chart-center")
+          .attr("height", height);
 
-      svg.append("path")
-          .datum(graticule)
-          .attr("class", "graticule")
-          .attr("d", path);
+      var context = canvas.node().getContext("2d");
+
+      var path = d3.geo.path()
+          .projection(projection)
+          .context(context);
 
       queue()
-        .defer(d3.json, "maps/world-50m.json")
+        .defer(d3.json, "maps/world-110m.json")
         .defer(d3.csv, "data/worldcords.csv")
         .await(ready);
 
-      function ready(error, world, stations) {
-        svg.append("path", ".graticule")
-            .datum(topojson.feature(world, world.objects.land))
-            .attr("class", "land")
-            .attr("d", path);
+      function ready(error, topo, stations) {
+        var land = topojson.feature(topo, topo.objects.land),
+            borders = topojson.mesh(topo, topo.objects.countries, function(a, b) { return a !== b; }),
+            grid = graticule(),
+            points = topojson.feature("multipoint", stations);
 
-        svg.append("path", ".graticule")
-            .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
-            .attr("class", "boundary")
-            .attr("d", path);
+        d3.timer(function() {
+          projection.rotate([speed * (Date.now() - start), -15]);
 
-        svg.append("path")
-          .datum({type: "MultiPoint", coordinates: stations})
-          .attr("class", "points")
-          .attr("d", path);
+          context.clearRect(0, 0, width, height);
+
+          context.beginPath();
+          path(sphere);
+          context.lineWidth = 3;
+          context.strokeStyle = "#000";
+          context.stroke();
+
+          context.beginPath();
+          path(sphere);
+          context.fillStyle = "#fff";
+          context.fill();
+
+          context.beginPath();
+          path(land);
+          context.fillStyle = "#222";
+          context.fill();
+
+          context.beginPath();
+          path(borders);
+          context.lineWidth = .5;
+          context.strokeStyle = "#fff";
+          context.stroke();
+
+          context.beginPath();
+          path(grid);
+          context.lineWidth = .5;
+          context.strokeStyle = "rgba(119,119,119,.5)";
+          context.stroke();
+
+          context.beginPath();
+          path(points);
+          context.lineWidth = .5;
+          context.strokeStyle = "rgba(119,119,119,.5)";
+          context.stroke();
+        });
       };
 
       d3.select(self.frameElement).style("height", height + "px");
-
     </script>
   </body>
 </html>

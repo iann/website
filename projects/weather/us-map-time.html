@@ -130,8 +130,8 @@
           .defer(d3.csv, "data/uscords-dates.csv")
           .await(ready);
 
-      function ready(error, us, walmarts) {
-        walmarts.forEach(function(d) {
+      function ready(error, us, stations) {
+        stations.forEach(function(d) {
           var p = projection(d);
           d[0] = p[0], d[1] = p[1];
           d.date = parseDate(d.begin);
@@ -150,7 +150,7 @@
         svg.append("g")
             .attr("class", "hexagons")
           .selectAll("path")
-            .data(hexbin(walmarts).sort(function(a, b) { return b.length - a.length; }))
+            .data(hexbin(stations).sort(function(a, b) { return b.length - a.length; }))
           .enter().append("path")
             .attr("d", function(d) { return hexbin.hexagon(radius(d.length)); })
             .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
