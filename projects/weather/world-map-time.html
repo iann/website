@@ -72,16 +72,24 @@
                 <li><a href="us-map-time.html">Stations with Age</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">World</li>
-                <li class="active"><a href="#">Stations</a></li>
-                <li><a href="#">Stations with Age</a></li>
+                <li><a href="world-map.html">Stations</a></li>
+                <li class="active"><a href="#">Stations with Age</a></li>
               </ul>
             </li>
-            <li><a href="#charts">Charts</a></li>
-            <li><a href="#about">About</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Charts <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li class="dropdown-header">Logan</li>
+                <li><a href="logan-chart.html">2013</a></li>
+                <li><a href="logan-chart-1950.html">1950-2013</a></li>
+              </ul>
+            </li>
+            <li><a href="numbers.html">Numbers</a></li>
+            <li><a href="about.html">About</a></li>
           </ul>
-        </div><!--/.nav-collapse -->
+        </div>
       </div>
-    </div>
+    </div><!--/.nav-collapse -->
 
     <div class="container">
 
@@ -95,6 +103,10 @@
         The map above shows the geographical locations for all the weather stations participating in the Integrated Surface Database (ISD) program.
         </p></div>
       </div>
+      <hr>
+      <footer>
+        <p>Data extracted from NOAA ISD and GHCN Datasets</p>
+      </footer>
     </div>
 
     <script src="js/vendor/jquery-2.1.1.min.js"></script>

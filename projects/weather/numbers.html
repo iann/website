@@ -14,44 +14,6 @@
     <link href="css/nv.d3.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="css/weather.css" rel="stylesheet">
-    <style>
-      .background {
-        fill: none;
-        pointer-events: all;
-      }
-
-      .feature {
-        fill: #222;
-        cursor: pointer;
-      }
-
-      .feature.active {
-        fill: #101010;
-      }
-
-      .mesh {
-        fill: none;
-        stroke: #777;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-      }
-
-      .land {
-        fill: #ddd;
-      }
-
-      .states {
-        fill: none;
-        stroke: #fff;
-        stroke-width: .5px;
-      }
-
-      .points {
-          fill: red;
-          stroke-linecap: round;
-          stroke-linejoin: round;
-      }
-    </style>
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
@@ -89,15 +51,15 @@
                 <li><a href="world-map-time.html">Stations with Age</a></li>
               </ul>
             </li>
-            <li class="dropdown active">
+            <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Charts <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li class="dropdown-header">Logan</li>
-                <li class="active"><a href="#">2013</a></li>
+                <li><a href="logan-chart.html">2013</a></li>
                 <li><a href="logan-chart-1950.html">1950-2013</a></li>
               </ul>
             </li>
-            <li><a href="numbers.html">Numbers</a></li>
+            <li class="active"><a href="#">Numbers</a></li>
             <li><a href="about.html">About</a></li>
           </ul>
         </div>
@@ -105,62 +67,42 @@
     </div><!--/.nav-collapse -->
 
     <div class="container">
-
       <div class="starter-template">
-        <h1>Logan Weather Data</h1>
-        <p class="lead">Located in East Boston, MA</p>
+        <h1>Database Information</h1>
+        <p class="lead">Some information on the underlying datasets, by the numbers.</p>
       </div>
-      <div class="center-block">
-        <div id="chart1" class="center-block"></div>
-        <div class="caption center-block"><p>The map above shows the geographical locations for all the weather stations participating in the Integrated Surface Database (ISD) program.
-        The map above shows the geographical locations for all the weather stations participating in the Integrated Surface Database (ISD) program.
-        </p></div>
+      <div class="page-header">
+        <h1>Details</h1>
       </div>
+      <ul>
+        <li><h2>2 collections <small>stations and weather</small></h2></li>
+        <li><h2>31,944 stations <small>across the globe, collecting hourly</small></h2></li>
+        <li><h2>544,014 documents <small>each containing a year of observations</small></h2></li>
+        <li><h2>47,655,626,400 observations <small>each containing roughly 5 measurements</small></h2></li>
+        <li><h2>238,278,132,000 measurements <small>in total.</small></h2></li>
+      </ul>
+      <div class="page-header">
+        <h1>Disk Usage</h1>
+      </div>
+      <ul>
+        <li><h2>22 MB <small>of station data</small></h2></li>
+        <li><h2>477 GB <small>of weather data</small></h2></li>
+      </ul>
+      <div class="page-header">
+        <h1>Computer Stats</h1>
+      </div>
+      <ul>
+        <li><h2>iMac <small>(2009)</small></h2></li>
+        <li><h2>Intel i5 <small>Quad Core @2.67GHz</small></h2></li>
+        <li><h2>16 GB <small>RAM</small></h2></li>
+        <li><h2>10 inserts per second <small>(average)</small></h2></li>
+      </ul>
       <hr>
       <footer>
         <p>Data extracted from NOAA ISD and GHCN Datasets</p>
       </footer>
     </div><!-- /.container -->
-
     <script src="js/vendor/jquery-2.1.1.min.js"></script>
     <script src="js/vendor/bootstrap.min.js"></script>
-    <script src="js/vendor/d3.js"></script>
-    <script src="js/vendor/nv.d3.js"></script>
-    <script>
-    var width = 960,
-      height = 500,
-      active = d3.select("null");
-
-    d3.json('data/logan-2013.json', function (data) {
-      nv.addGraph(function() {
-          var height = 500;
-          var width = 960;
-          var chart = nv.models.multiBarChart()
-            .transitionDuration(350)
-            .reduceXTicks(true)   //If 'false', every single x-axis tick label will be rendered.
-            .rotateLabels(0)      //Angle to rotate x-axis labels.
-            .showControls(false)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
-            .groupSpacing(0.1)    //Distance between each group of bars.
-            .stacked(false)
-          ;
-
-          // chart.xAxis
-          //     .tickFormat(d3.format('c'));
-
-          // chart.yAxis
-          //     .tickFormat(d3.format(',f'));
-
-          d3.select('#chart1')
-              .datum(data)
-              .append("svg")
-              .attr("height", height)
-              .call(chart);
-
-          nv.utils.windowResize(chart.update);
-
-          return chart;
-      });
-    });
-    </script>
   </body>
 </html>

@@ -11,22 +11,36 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="css/nv.d3.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="css/weather.css" rel="stylesheet">
     <style>
-      .graticule {
+      .background {
+        fill: none;
+        pointer-events: all;
+      }
+
+      .feature {
+        fill: #222;
+        cursor: pointer;
+      }
+
+      .feature.active {
+        fill: #101010;
+      }
+
+      .mesh {
         fill: none;
         stroke: #777;
-        stroke-width: .5px;
-        stroke-opacity: .5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
       }
 
       .land {
-        fill: #222;
+        fill: #ddd;
       }
 
-      .boundary {
+      .states {
         fill: none;
         stroke: #fff;
         stroke-width: .5px;
@@ -63,7 +77,7 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="dropdown active">
+            <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Maps <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li class="dropdown-header">US</li>
@@ -71,116 +85,83 @@
                 <li><a href="us-map-time.html">Stations with Age</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">World</li>
-                <li class="active"><a href="#">Stations</a></li>
-                <li><a href="#">Stations with Age</a></li>
+                <li><a href="world-map.html">Stations</a></li>
+                <li><a href="world-map-time.html">Stations with Age</a></li>
               </ul>
             </li>
-            <li><a href="#charts">Charts</a></li>
-            <li><a href="#about">About</a></li>
+            <li class="dropdown active">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Charts <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li class="dropdown-header">Logan</li>
+                <li><a href="logan-chart.html">2013</a></li>
+                <li class="active"><a href="#">1950-2013</a></li>
+              </ul>
+            </li>
+            <li><a href="numbers.html">Numbers</a></li>
+            <li><a href="about.html">About</a></li>
           </ul>
-        </div><!--/.nav-collapse -->
+        </div>
       </div>
-    </div>
+    </div><!--/.nav-collapse -->
 
     <div class="container">
 
       <div class="starter-template">
-        <h1>Weather Stations</h1>
-        <p class="lead">Located Across the Globe</p>
+        <h1>Logan Weather Data</h1>
+        <p class="lead">Located in East Boston, MA</p>
       </div>
       <div class="center-block">
-        <div id="map" class="center-block"></div>
+        <div id="chart1" class="center-block"></div>
         <div class="caption center-block"><p>The map above shows the geographical locations for all the weather stations participating in the Integrated Surface Database (ISD) program.
         The map above shows the geographical locations for all the weather stations participating in the Integrated Surface Database (ISD) program.
         </p></div>
       </div>
-    </div>
+      <hr>
+      <footer>
+        <p>Data extracted from NOAA ISD and GHCN Datasets</p>
+      </footer>
+    </div><!-- /.container -->
 
     <script src="js/vendor/jquery-2.1.1.min.js"></script>
     <script src="js/vendor/bootstrap.min.js"></script>
     <script src="js/vendor/d3.js"></script>
-    <script src="js/vendor/queue.v1.min.js"></script>
-    <script src="js/vendor/topojson.v1.min.js"></script>
+    <script src="js/vendor/nv.d3.js"></script>
     <script>
-      var width = 960,
-          height = 720,
-          speed = 1e-2,
-          start = Date.now();
+    var width = 960,
+      height = 500,
+      active = d3.select("null");
 
-      var sphere = {type: "Sphere"};
+    d3.json('data/logan-1950-2013.json', function (data) {
+      nv.addGraph(function() {
+          var height = 500;
+          var width = 960;
+          var chart = nv.models.multiBarChart()
+            .transitionDuration(350)
+            .reduceXTicks(true)   //If 'false', every single x-axis tick label will be rendered.
+            .rotateLabels(90)      //Angle to rotate x-axis labels.
+            .showControls(false)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
+            .groupSpacing(0.1)    //Distance between each group of bars.
+            .stacked(false)
+            .staggerLabels(true)
+          ;
 
-      var projection = d3.geo.orthographic()
-          .scale(height / 2.1)
-          .translate([width / 2, height / 2])
-          .clipAngle(90)
-          .precision(.5);
+          // chart.xAxis
+          //     .tickFormat(d3.format('c'));
 
-      var graticule = d3.geo.graticule();
+          // chart.yAxis
+          //     .tickFormat(d3.format(',f'));
 
-      var canvas = d3.select("#map").append("canvas")
-          .attr("width", width)
-          .attr("class", "chart-center")
-          .attr("height", height);
+          d3.select('#chart1')
+              .datum(data)
+              .append("svg")
+              .attr("height", height)
+              .call(chart);
 
-      var context = canvas.node().getContext("2d");
+          nv.utils.windowResize(chart.update);
 
-      var path = d3.geo.path()
-          .projection(projection)
-          .context(context);
-
-      queue()
-        .defer(d3.json, "maps/world-110m.json")
-        .defer(d3.csv, "data/worldcords.csv")
-        .await(ready);
-
-      function ready(error, topo, stations) {
-        var land = topojson.feature(topo, topo.objects.land),
-            borders = topojson.mesh(topo, topo.objects.countries, function(a, b) { return a !== b; }),
-            grid = graticule(),
-            points = topojson.feature("multipoint", stations);
-
-        d3.timer(function() {
-          projection.rotate([speed * (Date.now() - start), -15]);
-
-          context.clearRect(0, 0, width, height);
-
-          context.beginPath();
-          path(sphere);
-          context.lineWidth = 3;
-          context.strokeStyle = "#000";
-          context.stroke();
-
-          context.beginPath();
-          path(sphere);
-          context.fillStyle = "#fff";
-          context.fill();
-
-          context.beginPath();
-          path(land);
-          context.fillStyle = "#222";
-          context.fill();
-
-          context.beginPath();
-          path(borders);
-          context.lineWidth = .5;
-          context.strokeStyle = "#fff";
-          context.stroke();
-
-          context.beginPath();
-          path(grid);
-          context.lineWidth = .5;
-          context.strokeStyle = "rgba(119,119,119,.5)";
-          context.stroke();
-
-          context.beginPath();
-          path(points);
-          context.lineWidth = .5;
-          context.strokeStyle = "rgba(119,119,119,.5)";
-          context.stroke();
-        });
-      };
-
-      d3.select(self.frameElement).style("height", height + "px");
+          return chart;
+      });
+    });
     </script>
   </body>
 </html>
