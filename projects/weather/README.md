@@ -1,13 +1,13 @@
 # WeatherDBd3
 ## Web component
 
-## Libraries Used
+### Libraries Used
 
 * d3.js (http://d3js.org/)
 * NVD3 (http://nvd3.org/)
 * BootStrap (http://getbootstrap.com/)
 
-## Develop Locally
+### Develop Locally
 
 `$ git clone https://github.com/iann/iann.github.com.git`
 
