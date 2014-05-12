@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ISD-Lite Data Visulatiztion">
+    <meta name="author" content="Ian Moriarty">
+
+    <title>ISD-Lite Data Visulatiztion</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/weather.css" rel="stylesheet">
+    <style>
+      .graticule {
+        fill: none;
+        stroke: #777;
+        stroke-width: .5px;
+        stroke-opacity: .5;
+      }
+
+      .land {
+        fill: #222;
+      }
+
+      .boundary {
+        fill: none;
+        stroke: #fff;
+        stroke-width: .5px;
+      }
+
+      .points {
+          fill: red;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+      }
+    </style>
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href=".">ISD Data</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown active">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Maps <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li class="dropdown-header">US</li>
+                <li><a href="us-map.html">Stations</a></li>
+                <li><a href="us-map-time.html">Stations with Age</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">World</li>
+                <li class="active"><a href="#">Stations</a></li>
+                <li><a href="#">Stations with Age</a></li>
+              </ul>
+            </li>
+            <li><a href="#charts">Charts</a></li>
+            <li><a href="#about">About</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="starter-template">
+        <h1>Weather Stations</h1>
+        <p class="lead">Located Across the Globe</p>
+      </div>
+      <div class="center-block">
+        <div id="map" class="center-block"></div>
+        <div class="caption center-block"><p>The map above shows the geographical locations for all the weather stations participating in the Integrated Surface Database (ISD) program.
+        The map above shows the geographical locations for all the weather stations participating in the Integrated Surface Database (ISD) program.
+        </p></div>
+      </div>
+    </div>
+
+    <script src="js/vendor/jquery-2.1.1.min.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/d3.js"></script>
+    <script src="js/vendor/queue.v1.min.js"></script>
+    <script src="js/vendor/topojson-0.4.js"></script>
+    <script>
+      // var width = 960,
+      //     height = 720,
+      //     speed = 1e-2,
+      //     start = Date.now();
+      //
+      // var sphere = {type: "Sphere"};
+      //
+      // var projection = d3.geo.orthographic()
+      //     .scale(height / 2.1)
+      //     .translate([width / 2, height / 2])
+      //     .clipAngle(90)
+      //     .precision(.5);
+      //
+      // var graticule = d3.geo.graticule();
+      //
+      // var canvas = d3.select("#map").append("canvas")
+      //     .attr("width", width)
+      //     .attr("class", "chart-center")
+      //     .attr("height", height);
+      //
+      // var context = canvas.node().getContext("2d");
+      //
+      // var path = d3.geo.path()
+      //     .projection(projection)
+      //     .context(context);
+      //
+      // queue()
+      //   .defer(d3.json, "maps/world-110m.json")
+      //   .defer(d3.csv, "data/worldcords.csv")
+      //   .await(ready);
+      //
+      // function ready(error, topo, stations) {
+      //   var land = topojson.feature(topo, topo.objects.land),
+      //       borders = topojson.mesh(topo, topo.objects.countries, function(a, b) { return a !== b; }),
+      //       grid = graticule(),
+      //       points = topojson.feature("multipoint", stations);
+      //
+      //   d3.timer(function() {
+      //     projection.rotate([speed * (Date.now() - start), -15]);
+      //
+      //     context.clearRect(0, 0, width, height);
+      //
+      //     context.beginPath();
+      //     path(sphere);
+      //     context.lineWidth = 3;
+      //     context.strokeStyle = "#000";
+      //     context.stroke();
+      //
+      //     context.beginPath();
+      //     path(sphere);
+      //     context.fillStyle = "#fff";
+      //     context.fill();
+      //
+      //     context.beginPath();
+      //     path(land);
+      //     context.fillStyle = "#222";
+      //     context.fill();
+      //
+      //     context.beginPath();
+      //     path(borders);
+      //     context.lineWidth = .5;
+      //     context.strokeStyle = "#fff";
+      //     context.stroke();
+      //
+      //     context.beginPath();
+      //     path(grid);
+      //     context.lineWidth = .5;
+      //     context.strokeStyle = "rgba(119,119,119,.5)";
+      //     context.stroke();
+      //
+      //     context.beginPath();
+      //     path(points);
+      //     context.lineWidth = .5;
+      //     context.strokeStyle = "rgba(119,119,119,.5)";
+      //     context.stroke();
+      //   });
+      // };
+
+      // d3.select(self.frameElement).style("height", height + "px");
+
+    var land;
+    var borders;
+    var stations;
+
+    var width = 960;
+    var height = 800;
+
+    var minScale = 200;
+    var maxScale = 6400;
+    var scale = 400;
+
+    var projection = d3.geo.orthographic()
+        .scale(scale)
+        .clipAngle(90)
+        .translate([width / 2, height / 2]);
+
+    var canvas = d3.select("#map").append("canvas")
+        .attr("id", "globe")
+        .attr("width", width)
+        .attr("height", height);
+
+    var c = canvas.node().getContext("2d");
+
+    var path = d3.geo.path()
+        .projection(projection)
+        .context(c);
+
+    var λ = d3.scale.linear()
+      .domain([0, width])
+      .range([-180, 180]);
+
+    var φ = d3.scale.linear()
+      .domain([0, height])
+      .range([90, -90]);
+
+    function redraw() {
+      c.clearRect(0, 0, width, height);
+      if (land != null) {
+        c.fillStyle = "#bbb", c.beginPath(), path(land), c.fill();
+      }
+      if (borders != null) {
+        c.strokeStyle = "#fff", c.lineWidth = .5, c.beginPath(), path(borders), c.stroke();
+      }
+      if (land != null && borders != null && stations != null) {
+        c.strokeStyle = "#3A84A8", c.lineWidth = 1, c.beginPath(), path(stations), c.stroke();
+      }
+    }
+
+    var mouseDown = false;
+
+    canvas.on("mousemove", function () {
+      if (mouseDown) {
+        var p = d3.mouse(this);
+        projection.rotate([λ(p[0]), φ(p[1])]);
+        redraw();
+      }
+    }).on("mousedown", function () {
+      mouseDown = true;
+    }).on("mouseup", function () {
+      mouseDown = false;
+    });
+
+    function drawAt(longitude, lat) {
+      projection.rotate([-longitude, -lat]);
+      redraw();
+    }
+
+    d3.json("maps/world-110m-2.json", function (error, world) {
+      land = topojson.object(world, world.objects.land);
+      borders = topojson.mesh(world, world.objects.countries, function(a, b) { return a.id !== b.id; });
+
+      //drawAt(-71, 42);
+    });
+
+    d3.csv("data/uscords.csv", function (error, stationData) {
+      stations = stationData;
+      redraw();
+    });
+
+    var globe = document.getElementById("globe");
+
+    globe.onmousewheel = function (event) {
+      // http://stackoverflow.com/questions/2916081/zoom-in-on-a-point-using-scale-and-translate
+      var wheel = event.wheelDelta/120;
+
+      var zoom = Math.pow(1 + Math.abs(wheel)/2 , wheel > 0 ? 1 : -1);
+
+      var initScale = scale;
+      initScale *= zoom;
+      if (initScale <= maxScale && initScale >= minScale) {
+        scale = initScale;
+      }
+
+      projection.scale(scale);
+      redraw();
+    };
+    </script>
+  </body>
+</html>
