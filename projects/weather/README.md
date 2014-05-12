@@ -10,7 +10,9 @@
 ## Develop Locally
 
 `$ git clone https://github.com/iann/iann.github.com.git`
+
 `$ cd projects/weather`
+
 `$ python -m SimpleHTTPServer`
 
 Add data to `data` directory and reference it in html. Use either d3 or NVD3 supported formats.
