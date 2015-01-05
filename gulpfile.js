@@ -3,6 +3,8 @@
 // generated on 2015-01-04 using generator-gulp-webapp 0.2.0
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
+var handlebars = require('gulp-compile-handlebars');
+var rename = require('gulp-rename');
 
 gulp.task('styles', function () {
   return gulp.src('app/styles/main.scss')
@@ -29,7 +31,12 @@ gulp.task('html', ['styles'], function () {
     .pipe($.replace, 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap','fonts');
   var assets = $.useref.assets({searchPath: '{.tmp,app}'});
 
-  return gulp.src('app/*.html')
+  return gulp.src('app/*.hbs')
+    .pipe($.debug())
+    .pipe(handlebars())
+    .pipe(rename({
+      extname: '.html'
+    }))
     .pipe(assets)
     .pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', cssChannel()))
