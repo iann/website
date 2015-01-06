@@ -31,9 +31,14 @@ gulp.task('html', ['styles'], function () {
     .pipe($.replace, 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap','fonts');
   var assets = $.useref.assets({searchPath: '{.tmp,app}'});
 
-  return gulp.src('app/*.hbs')
-    .pipe($.debug())
-    .pipe(handlebars())
+  var handlebarsData = {};
+  var handlebarsOptions = {
+    ignorePartials: true, //ignores the unknown footer2 partial in the handlebars template, defaults to false
+    batch : ['app/templates']
+  };
+
+  return gulp.src('app/templates/*.hbs')
+    .pipe(handlebars(handlebarsData, handlebarsOptions))
     .pipe(rename({
       extname: '.html'
     }))
