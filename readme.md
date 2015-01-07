@@ -1,3 +1,4 @@
-#New personal website project
+# Ian Moriarty's personal website project
 
-Built using Initializr (https://github.com/verekia/initializr-template)
+Static site generation built using some cool JS libraries
+(Gulp, Handlebars, Markdown).
