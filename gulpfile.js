@@ -5,6 +5,7 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var handlebars = require('gulp-compile-handlebars');
 var rename = require('gulp-rename');
+var globalData = require('./config.json');
 
 gulp.task('styles', function () {
   return gulp.src('app/styles/main.scss')
@@ -31,14 +32,20 @@ gulp.task('html', ['styles'], function () {
     .pipe($.replace, 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap','fonts');
   var assets = $.useref.assets({searchPath: '{.tmp,app}'});
 
-  var handlebarsData = {};
+  var postData = {};
+  var templateData = {
+    'globalData': globalData,
+    'postData': postData
+  };
+
   var handlebarsOptions = {
     ignorePartials: true, //ignores the unknown footer2 partial in the handlebars template, defaults to false
-    batch : ['app/templates']
+    batch : ['app/templates'],
+
   };
 
   return gulp.src('app/templates/*.hbs')
-    .pipe(handlebars(handlebarsData, handlebarsOptions))
+    .pipe(handlebars(templateData, handlebarsOptions))
     .pipe(rename({
       extname: '.html'
     }))
