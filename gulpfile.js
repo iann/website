@@ -58,6 +58,14 @@ gulp.task('html', ['styles'], function () {
     .pipe(gulp.dest('dist'));
 });
 
+gulp.task('pages', function () {
+  return gulp.src('app/about/*.md')
+  .pipe($.frontMatter({property: 'page', remove: true}))
+  .pipe($.markdown())
+  .pipe(rename({extname: '.html'}))
+  .pipe(gulp.dest('dist'));
+});
+
 gulp.task('images', function () {
   return gulp.src('app/images/**/*')
     .pipe($.cache($.imagemin({
@@ -137,7 +145,7 @@ gulp.task('watch', ['connect'], function () {
   gulp.watch('bower.json', ['wiredep']);
 });
 
-gulp.task('build', ['jshint', 'html', 'images', 'fonts', 'extras'], function () {
+gulp.task('build', ['jshint', 'pages', 'html', 'images', 'fonts', 'extras'], function () {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
