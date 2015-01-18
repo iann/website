@@ -3,6 +3,7 @@
 title:   Browser Caching
 author:  Ian Moriarty  
 date:    2014-04-25
+layout:  post
 
 ---
 
@@ -53,7 +54,7 @@ HTTP has many mechanisms to help speed up request to response latency through ca
 
 Mark Nottingham summarizes a few more caching directives [\[3\]](http://www.mnot.net/cache_docs/):
 
-> `max-age` [seconds] -- specifies the maximum amount of time that a representation will be considered fresh. Similar to Expires, this directive is relative to the time of the request, rather than absolute. [seconds] is the number of seconds from the time of the request you wish the representation to be fresh for. 
+> `max-age` [seconds] -- specifies the maximum amount of time that a representation will be considered fresh. Similar to Expires, this directive is relative to the time of the request, rather than absolute. [seconds] is the number of seconds from the time of the request you wish the representation to be fresh for.
 
 `max-age` is a strong validator. Within the asset's max-age time the client **will not** make further requests to the server until the max-age has expired. That is, the cached version of the file **will** be used without consulting with the server for an updated asset until the `max-age` time has elapsed.
 
@@ -77,13 +78,13 @@ Conversely, when `no-cache` is sent with the response from the server the server
 
 Mobify [\[4\]](https://www.mobify.com/blog/beginners-guide-to-http-cache-headers/) defines other common header directives:
 
-> `expires` -- Back in the day, this was the standard way to specify when an asset expired, and is just a basic date-time stamp. It is still fairly useful for older user agents, which cryptowebologists assure us still roam in the uncharted territories. On most modern systems, the "cache-control" headers "max-age" and "s-maxage" will take precedence, but it's always good practice to set a matching value here for compatibility. 
+> `expires` -- Back in the day, this was the standard way to specify when an asset expired, and is just a basic date-time stamp. It is still fairly useful for older user agents, which cryptowebologists assure us still roam in the uncharted territories. On most modern systems, the "cache-control" headers "max-age" and "s-maxage" will take precedence, but it's always good practice to set a matching value here for compatibility.
 
 The expires header is a strong validator. With an expires header the client **will not** request a new asset until after the expiration date. [\[2\]](http://www.mnot.net/cache_docs/)
 
 > The Expires header can’t be circumvented; unless the cache (either browser or proxy) runs out of room and has to delete the representations, the cached copy will be used until then.
 
-Setting far in the future expires dates can be dangerous if the underlying asset changes. Since the client will not talk to the server until after the expiration date it will always used the locally cached copy until that point. When a page breaks due to incorrect caching policies it is called a poison cache scenario and a cache busting technique (described below) must be used to break out of it. 
+Setting far in the future expires dates can be dangerous if the underlying asset changes. Since the client will not talk to the server until after the expiration date it will always used the locally cached copy until that point. When a page breaks due to incorrect caching policies it is called a poison cache scenario and a cache busting technique (described below) must be used to break out of it.
 
 > `no-transform` -- “Transform into what?”, you’re surely asking. Some proxies will convert image formats and other documents to improve performance. Presumably this was thought to be a feature that you should have to opt out of. If you don’t like the idea of your CDN making automated guesses about how your content should be encoded or formatted, I suggest including this header.
 
@@ -99,7 +100,7 @@ Similar to `etag`, `last-modified` is a file validator and should be used with o
 
 ## Caching Strategies
 
-There are three general strategies when it comes to caching.  I have dubbed these *sometimes*, *always* and *never*. 
+There are three general strategies when it comes to caching.  I have dubbed these *sometimes*, *always* and *never*.
 
 ### Sometimes
 
@@ -148,7 +149,7 @@ Of course, if the traffic is over HTTPS intermediate caches can not cache assets
 
 ## Interesting Edge Cases
 
-A place to keep an ongoing log of interesting cacheing strategies. Use [REDbot](http://redbot.org/) on a URL to see possible caching pitfalls. 
+A place to keep an ongoing log of interesting cacheing strategies. Use [REDbot](http://redbot.org/) on a URL to see possible caching pitfalls.
 
 ### Browser Caching Heuristic
 
@@ -158,7 +159,7 @@ Firefox and Chrome currently implement the following heuristic.
 
 ```c
 if (last_modified_value <= date_value) {
-    return (date_value - last_modified_value) / 10;}    
+    return (date_value - last_modified_value) / 10;}
 ```
 
 Where `last_modified_value` is the `last-modified` header and `date_value` is the date returned in the response header or the clients current date-time. The calculated value is then set to that assets `max-age`. A quick calculation will show why this is not always a good idea. Let's say we have an asset last modified 200 days ago. Chrome and Firefox will set the expiration of this file to 20 days into the future. This expiration time gets longer and longer if the files do not change often.
