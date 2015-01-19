@@ -63,7 +63,7 @@ function filename2date() {
       var day      = match[3];
       var basename = match[4];
       file.page.date = new Date(year + "-" + month + "-" + day);
-      file.page.url  = '/' + year + '/' + month + '/' + day + '/' + basename + '.html';
+      file.page.url  = '/' + year + '/' + month + '/' + day + '/' + basename;
     }
 
     this.push(file);
@@ -163,9 +163,10 @@ gulp.task('posts', function () {
       var year = match[1];
       var month = match[2];
       var day = match[3];
+      var title = match[4];
 
-      path.dirname = year + '/' + month + '/' + day;
-      path.basename = match[4];
+      path.dirname = year + '/' + month + '/' + day + '/' + title;
+      path.basename = "index";
     }
   }))
   .pipe(gulp.dest('build'));
