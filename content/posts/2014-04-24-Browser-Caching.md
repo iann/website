@@ -7,13 +7,13 @@ layout:  post
 
 ---
 
-## Overview
+### Overview
 
 Many assets on webpages are static files (Javascript, CSS, images, etc). This type of content *can* and *should* be cached. Caching saves on bandwidth and provides a better user experience. The HTTP Specification [RFC2616](http://www.w3.org/Protocols/rfc2616/rfc2616.html) allows for caching at many levels. This article will focus primarily on requests made by user-agents / clients and corresponding responses from origin servers.
 
 <!--more-->
 
-## Protocol
+### Protocol
 
 When a client requests an asset on a web server it sends a `GET` request to the server. Along with the `GET` request the client sends additional information about the request. The additional information is contained in the beginning or head of the file accordingly these properties are called `Headers`. The corresponding response from the server also contains Headers.  Headers specify what a client is capable of accepting or server is sending in the payload and provide other directives.
 
@@ -39,7 +39,7 @@ Server: Apache-Coyote/1.1
 Vary: Accept-Encoding
 ```
 
-## Cache Headers
+### Cache Headers
 
 The full specification on HTTP/1.1 caching header directives can be found here [\[1\]](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14).
 
@@ -98,11 +98,11 @@ Similar to `etag`, `last-modified` is a file validator and should be used with o
 
 `etag` and `last-modified` can be used to save on bandwidth. When a cache expires the browser will make a new `GET` request for that asset. If the asset has an `etag` or `last-modified` it will send `if-none-match` or `if-modified-since` headers with the request, respectively. If the `etag` has not changed or the modification date is less than or equal to the cached asset the server will respond with `304 Not Modified` with no content in the body. Presumably, a server will respond with `max-age` or a new `expires` date and the client will not request again until that time has elapsed.
 
-## Caching Strategies
+### Caching Strategies
 
 There are three general strategies when it comes to caching.  I have dubbed these *sometimes*, *always* and *never*.
 
-### Sometimes
+#### Sometimes
 
 The other strategy is to have a continuous caching strategy. One does not want to completely eliminate the benefits of caching but files are updated often enough that assets can not be stale long amounts of time. These variables can be tweaked but here is an example Amazon S3 uses for static assets.
 
@@ -117,7 +117,7 @@ Vary: Accept-Encoding
 
 We can see that S3 tells intermediate caches to hold onto content for 900 seconds while clients should keep content for 300 seconds. The average active session can be another useful value for cache time. It is important to have either an `etag` or `last-modified` set because we can benefit from a `304 Not Modified` response when the cached file expires.
 
-### Always
+#### Always
 
 Google recommends the "always" technique to ensure maximum caching and clients always getting the most fresh files. In this technique one sets their cache to as long as possible (maximum 1 year) to ensure the most efficient caching takes place. If a file change takes place the client is forced to download the latest file, this is done by dynamically changing the name of the file based on its contents. This step ideally would be automated in a build step.
 
@@ -130,7 +130,7 @@ Expires: Thu, 23 Apr 2015 20:53:12 GMT
 Last-Modified: Wed, 09 Oct 2013 01:35:39 GMT
 ```
 
-### Never
+#### Never
 
 This strategy is useful if the asset should never be kept in local or intermediate caches.
 
@@ -143,15 +143,15 @@ Expires: Wed, 23 Apr 2014 20:53:12 GMT
 
 Of course, if the traffic is over HTTPS intermediate caches can not cache assets.
 
-## Cache Busting
+### Cache Busting
 
 > The most effective solution is to change any links to them; that way, completely new representations will be loaded fresh from the origin server. Remember that any page that refers to these representations will be cached as well. Because of this, it’s best to make static images and similar representations very cacheable, while keeping the HTML pages that refer to them on a tight leash. [\[2\]](http://www.mnot.net/cache_docs/)
 
-## Interesting Edge Cases
+### Interesting Edge Cases
 
 A place to keep an ongoing log of interesting cacheing strategies. Use [REDbot](http://redbot.org/) on a URL to see possible caching pitfalls.
 
-### Browser Caching Heuristic
+#### Browser Caching Heuristic
 
 According to the spec, when a server sends partial caching headers then the client has to decide the correct caching strategy [\[5\]](http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html). An example is when no `expires` or `cache-control` headers are set, but file validation `last-modified` or `etag` are sent. The client will apply a heuristic expiration to the asset.
 
@@ -164,7 +164,7 @@ if (last_modified_value <= date_value) {
 
 Where `last_modified_value` is the `last-modified` header and `date_value` is the date returned in the response header or the clients current date-time. The calculated value is then set to that assets `max-age`. A quick calculation will show why this is not always a good idea. Let's say we have an asset last modified 200 days ago. Chrome and Firefox will set the expiration of this file to 20 days into the future. This expiration time gets longer and longer if the files do not change often.
 
-## Resources
+### Resources
 
 * [1] http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14
 * [2] https://developers.google.com/speed/docs/best-practices/caching
@@ -172,7 +172,7 @@ Where `last_modified_value` is the `last-modified` header and `date_value` is th
 * [4] https://www.mobify.com/blog/beginners-guide-to-http-cache-headers/
 * [5] http://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html
 
-## Additional Reading
+### Additional Reading
 
 * https://developers.google.com/speed/articles/gzip?hl=en
 * http://blog.maxcdn.com/accept-encoding-its-vary-important/
