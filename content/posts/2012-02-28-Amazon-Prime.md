@@ -6,12 +6,14 @@ title: Amazon Prime Rocks
 
 [Data Monday: Amazon Prime](http://www.lukew.com/ff/entry.asp?1508)
 
-Amazon Prime Memebers: 
+<!--more-->
+
+Amazon Prime Memebers:
 >Increase their purchases on Amazon from $400 a year to $900 a year after they join.
 
 >Spend 130% more than regular Amazon customers.
 
->May be responsible for as much as 20% of Amazon's overall sales in the U.S. 
+>May be responsible for as much as 20% of Amazon's overall sales in the U.S.
 
 >82% of Prime members buy on Amazon even if the item is less expensive somewhere else
 

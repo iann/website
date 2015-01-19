@@ -7,11 +7,11 @@ layout:  post
 
 ---
 
-# Browser Caching
-
 ## Overview
 
 Many assets on webpages are static files (Javascript, CSS, images, etc). This type of content *can* and *should* be cached. Caching saves on bandwidth and provides a better user experience. The HTTP Specification [RFC2616](http://www.w3.org/Protocols/rfc2616/rfc2616.html) allows for caching at many levels. This article will focus primarily on requests made by user-agents / clients and corresponding responses from origin servers.
+
+<!--more-->
 
 ## Protocol
 
