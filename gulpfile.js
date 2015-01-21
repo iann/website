@@ -13,8 +13,6 @@ var swig        = require('swig');
 var through     = require('through2');
 var connect     = require('connect');
 var http        = require('http');
-var deploy      = require('gulp-gh-pages');
-
 
 var site  = require('./site.json');
 site.time = new Date();
