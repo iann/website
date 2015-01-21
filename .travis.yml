@@ -4,6 +4,7 @@ node_js:
 branches:
   only:
   - develop
+script: gulp prod
 env:
   global:
   - secure: dU3nLlry/+VuiKdUOg366JI9NmcN8tI1pB4oA4J4ElJ604f6sp8nJuB2yxD/CtgLnqTRrS6dWV+SUF2CfTH0i6f42VmMS33CtE/Hl/a8wF9GL7jHXJ3zNQ0qh0yaV1Th/LD+E3AxxjObHYj1kBsR4QFrJ62TcKt49kBjlR1b/qM=
