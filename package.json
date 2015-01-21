@@ -18,6 +18,9 @@
   "engines": {
     "node": ">=0.10.0"
   },
+  "scripts": {
+    "deploy": "./scripts/deploy-pages.sh"
+  },
   "devDependencies": {
     "gulp": "^3.7.0",
     "gulp-marked": "^0.2.0",
