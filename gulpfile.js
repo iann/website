@@ -298,20 +298,10 @@ gulp.task('rss', ['posts'], function () {
   .pipe(gulp.dest('build/'));
 });
 
-gulp.task('deploy', function () {
-  var options = {
-    branch: "master"
-  }
-  return gulp.src('./build/**/*')
-  .pipe(deploy(options));
-});
-
 gulp.task('default', ['assets', 'pages', 'media', 'posts', 'index', 'archive', 'tags', 'rss']);
 
 // quickfix for yeehaa's gulp step (TODO build a sane gulp step)
 gulp.task('test', ['default']);
-
-gulp.task('prod', ['default', 'deploy'])
 
 gulp.task('clean', function() {
   return gulp.src('build', {read: false})
