@@ -287,7 +287,7 @@ gulp.task('optimize', function() {
   return gulp.src("build/**/*.html")
     .pipe(userefAssets)      // Concatenate with gulp-useref
     .pipe(jsFilter)
-    .pipe(uglify(uglifyOptions))             // Minify any javascript sources
+    .pipe(uglify(uglifyOptions))   // Minify any javascript sources
     .pipe(jsFilter.restore())
     .pipe(cssFilter)
     .pipe(csso())               // Minify any CSS sources

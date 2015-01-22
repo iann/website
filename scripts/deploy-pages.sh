@@ -1,7 +1,7 @@
 #!/bin/bash
 rm -rf build || exit 0;
-gulp
-( cd build
+gulp prod
+( cd dist
 git init
 git config user.name "Travis-CI"
 git config user.email "travis@88north.com"
