@@ -22,6 +22,7 @@ var uglify      = require('gulp-uglify');
 var csso        = require('gulp-csso');
 var runSequence = require('run-sequence');
 var minifyHtml  = require('gulp-minify-html');
+var uncss       = require('gulp-uncss');
 
 var site  = require('./site.json');
 site.time = new Date();
@@ -290,6 +291,9 @@ gulp.task('optimize', function() {
     .pipe(uglify(uglifyOptions))   // Minify any javascript sources
     .pipe(jsFilter.restore())
     .pipe(cssFilter)
+    .pipe(uncss({
+            html: ["build/**/*.html"]
+    }))
     .pipe(csso())               // Minify any CSS sources
     .pipe(cssFilter.restore())
     .pipe(rev())                // Rename the concatenated files
