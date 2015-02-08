@@ -22,8 +22,9 @@
     "deploy": "./scripts/deploy-pages.sh"
   },
   "devDependencies": {
+    "browser-sync": "^2.0.0-rc9",
     "connect": "^2.19.3",
-    "gulp": "^3.7.0",
+    "gulp": "^3.8.10",
     "gulp-clean": "^0.3.0",
     "gulp-csso": "^0.2.9",
     "gulp-filter": "^2.0.0",

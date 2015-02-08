@@ -11,7 +11,7 @@ var path        = require('path');
 var swig        = require('swig');
 var through     = require('through2');
 var connect     = require('connect');
-var http        = require('http');
+var browserSync = require('browser-sync');
 
 // optimization includes
 var rev         = require('gulp-rev');
@@ -275,6 +275,14 @@ gulp.task('rss', ['posts'], function () {
   .pipe(gulp.dest('dist/'));
 });
 
+gulp.task('browser-sync', function() {
+    browserSync({
+        server: {
+            baseDir: "./build"
+        }
+    });
+});
+
 gulp.task('optimize', function() {
   var htmlFilter = filter("**/*.html");
   var jsFilter = filter("**/*.js");
@@ -306,9 +314,34 @@ gulp.task('optimize', function() {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('default', function (cb) {
+gulp.task('watch', function () {
+  gulp.watch(['assets/**/*'], ['assets']);
+  gulp.watch(['content/media'], ['media'])
+  gulp.watch(['templates/page.html','content/pages/*.md'], ['pages', browserSync.reload]);
+  gulp.watch(['templates/post.html', 'templates/index.html', 'templates/journal.html','content/posts/*.md'], ['posts', 'index', 'archive', 'tags', 'rss', browserSync.reload]);
+});
+
+gulp.task('clean', function() {
+  return gulp.src(['build', 'dist'], {read: false})
+  .pipe(clean());
+});
+
+gulp.task('build',
+    [ 'assets',
+      'pages',
+      'media',
+      'posts',
+      'index',
+      'archive',
+      'tags',
+      'rss' ]
+);
+
+gulp.task('dev', function (cb) {
   runSequence('clean',
-              ['assets', 'pages', 'media', 'posts', 'index', 'archive', 'tags', 'rss'],
+              [ 'build',
+                'browser-sync'],
+              'watch',
               cb);
 });
 
@@ -318,23 +351,9 @@ gulp.task('prod', function (cb) {
               cb);
 });
 
-// quickfix for yeehaa's gulp step (TODO build a sane gulp step)
-gulp.task('test', ['default']);
 
-gulp.task('clean', function() {
-  return gulp.src(['build', 'dist'], {read: false})
-  .pipe(clean());
-});
-
-gulp.task('watch', ['default'], function () {
-  gulp.watch(['assets/**/*'], ['assets']);
-  gulp.watch(['content/media'], ['media'])
-  gulp.watch(['templates/page.html','content/pages/*.md'], ['pages']);
-  gulp.watch(['templates/post.html', 'templates/index.html', 'templates/journal.html','content/posts/*.md'], ['posts', 'index', 'archive', 'tags', 'rss']);
-
-  var app = connect()
-  .use(connect.static('build'))
-  .use(connect.directory('build'));
-
-  http.createServer(app).listen(3000);
+gulp.task('default', function (cb) {
+  runSequence('clean',
+              'build',
+              cb);
 });
