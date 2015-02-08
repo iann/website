@@ -121,7 +121,11 @@ gulp.task('pages', function () {
   .pipe(frontMatter({property: 'page', remove: true}))
   .pipe(marked())
   .pipe(applyTemplate('templates/page.html'))
-  .pipe(rename({extname: '.html'}))
+  .pipe(rename(function (path) {
+      path.extname = '.html';
+      path.dirname = path.basename;
+      path.basename = 'index';
+  }))
   .pipe(gulp.dest('build'));
 });
 
