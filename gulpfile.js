@@ -198,7 +198,7 @@ function posts(basename, count) {
       c++;
       if (c == count) {
         var file = new gutil.File({
-          path: basename + (page == 0 ? '' : page) + '.html',
+          path: basename + (page == 0 ? '' : page) + 'index.html',
           contents: new Buffer('')
         });
         console.log('page=' + page + ' c=' + c + ' posts.length=' + site.posts.length);
@@ -217,12 +217,12 @@ function posts(basename, count) {
 
     if (posts.length != 0) {
       var file = new gutil.File({
-        path: basename + (page == 0 ? '' : page) + '.html',
+        path: basename + '/' + (page == 0 ? '' : page + '/') + 'index.html',
         contents: new Buffer('')
       });
       file.page = {
         posts: posts,
-        prevPage: page != 0 ? basename + ((page-1) == 0 ? '' : page) + '.html' : null,
+        prevPage: page != 0 ? basename + '/' + ((page-1) == 0 ? '' : page + '/') : null,
         nextPage: null,
       };
       stream.write(file);
@@ -236,8 +236,8 @@ function posts(basename, count) {
 }
 
 gulp.task('archive', ['posts'], function () {
-  return posts('journal', 10)
-  .pipe(applyTemplate('templates/journal.html'))
+  return posts('blog', 10)
+  .pipe(applyTemplate('templates/blog.html'))
   .pipe(gulp.dest('build/'));
 });
 
