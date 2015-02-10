@@ -9,8 +9,33 @@
 {% if page.nextPage %}
 <a href="/{{ page.nextPage }}" class="btn btn-default pull-right">Older Posts <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
 {% endif %}
-<div class="clearfix"></div>
+
 {% for post in page.posts %}
+<div class="white">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2">
+        <h2>{{ post.title }}</h2>
+        <bd>{{ post.date|date('Y-m-d') }}</bd>
+        <p class="pull-right">
+          {% for tag in post.tags %}
+          <a href="/tag/{{tag}}.html">{{tag}}</a>
+          {% endfor %}
+        </p>
+        <p>
+          {{ post.summary|safe }}
+        </p>
+        <!-- <p class="pull-right">
+        <a href="{{ post.url }}" class="btn btn-primary">read more</a>
+      </p> -->
+      <p><a href="{{ post.url }}">Continue Reading...</a></p>
+    </div>
+  </div><!-- /row -->
+</div> <!-- /container -->
+</div><!-- /white -->
+{% endfor %}
+
+<!-- {% for post in page.posts %}
   <h2>{{post.title}}</h2>
   <p class="pull-right">
     {% for tag in post.tags %}
@@ -25,7 +50,8 @@
     <a href="{{ post.url }}" class="btn btn-primary">read more</a>
   </p>
   <div class="clearfix"></div>
-{% endfor %}
+{% endfor %} -->
+
 {% if page.prevPage %}
 <a href="/{{ page.prevPage }}" class="btn btn-default pull-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Newer Posts</a>
 {% endif %}
