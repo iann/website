@@ -2,17 +2,14 @@
 {% set page.nav = "blog" %}
 {% extends 'default.html' %}
 {% block content %}
-<article>
-{% if page.prevPage %}
-<a href="/{{ page.prevPage }}" class="btn btn-default pull-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Newer Posts</a>
-{% endif %}
-{% if page.nextPage %}
-<a href="/{{ page.nextPage }}" class="btn btn-default pull-right">Older Posts <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
-{% endif %}
 
-{% for post in page.posts %}
+{% include "partials/common/nav.html" %}
+
+
 <div class="white">
   <div class="container">
+    
+    {% for post in page.posts %}
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2">
         <h2>{{ post.title }}</h2>
@@ -29,11 +26,19 @@
         <a href="{{ post.url }}" class="btn btn-primary">read more</a>
       </p> -->
       <p><a href="{{ post.url }}">Continue Reading...</a></p>
-    </div>
-  </div><!-- /row -->
-</div> <!-- /container -->
+      </div>
+    </div><!-- /row -->
+    {% endfor %}
+
+    {% if page.prevPage %}
+    <a href="/{{ page.prevPage }}" class="btn btn-default pull-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Newer Posts</a>
+    {% endif %}
+    {% if page.nextPage %}
+    <a href="/{{ page.nextPage }}" class="btn btn-default pull-right">Older Posts <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+    {% endif %}
+    <div class="clearfix"></div>
+  </div> <!-- /container -->
 </div><!-- /white -->
-{% endfor %}
 
 <!-- {% for post in page.posts %}
   <h2>{{post.title}}</h2>
@@ -52,12 +57,5 @@
   <div class="clearfix"></div>
 {% endfor %} -->
 
-{% if page.prevPage %}
-<a href="/{{ page.prevPage }}" class="btn btn-default pull-left"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Newer Posts</a>
-{% endif %}
-{% if page.nextPage %}
-<a href="/{{ page.nextPage }}" class="btn btn-default pull-right">Older Posts <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
-{% endif %}
-<div class="clearfix"></div>
-<article>
+
 {% endblock %}

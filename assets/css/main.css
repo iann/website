@@ -94,8 +94,12 @@ a:after {
 	/* padding-top: 70px; */
 }
 
-#footer,.navbar-inverse .navbar-nav > li > a {
+.navbar-inverse .navbar-nav > li > a {
 	color: white;
+	padding-bottom: 4px;
+}
+#footer a {
+  color: white;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover {
@@ -145,12 +149,6 @@ a:after {
 	padding-top: 50px;
 	padding-bottom: 50px;
 }
-
-.scale-to-760 {
-  max-height: 760px;
-  max-width: 760px;
-}
-
 
 /* +++++ WRAP SECTIONS +++++ */
 
@@ -267,5 +265,5 @@ bt {
 
 .glyphicon {
 	font-size: 40px;
-	color: #1abc9c;
+	color: #21195F;
 }

@@ -7,7 +7,7 @@ layout:  post
 
 ---
 
-<img class="scale-to-760" src="/img/wallpapers/simple-boxes-hd-1920x1080.png">
+<img class="img-responsive" src="/img/wallpapers/simple-boxes-hd-1920x1080.png">
 
 Download Links:
 

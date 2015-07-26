@@ -191,21 +191,21 @@ function posts(basename, count) {
   if (site.posts)
   {
     var c     = 0;
-    var page  = 0;
+    var page  = 1;
     var posts = [];
     site.posts.forEach(function (post) {
       posts.push(post);
       c++;
       if (c == count) {
         var file = new gutil.File({
-          path: basename + (page == 0 ? '' : page) + 'index.html',
+          path: basename + '/' + (page === 1 ? '' : 'page/' + page + '/') + 'index.html',
           contents: new Buffer('')
         });
-        console.log('page=' + page + ' c=' + c + ' posts.length=' + site.posts.length);
+        //console.log('page=' + page + ' c=' + c + ' posts.length=' + site.posts.length);
         file.page = {
           posts: posts,
-          prevPage: page != 0 ? basename + ((page-1) == 0 ? '' : page-1) + '.html' : null,
-          nextPage: (page+1) * count < site.posts.length ? basename + (page+1) + '.html' : null,
+          prevPage: page != 1 ? basename + '/' + ((page-1) == 1 ? '' : 'page/' + (page-1) + '/') : null,
+          nextPage: (page+1) * count < site.posts.length ? basename + '/page/' + (page+1) + '/': null,
         };
         stream.write(file);
 
@@ -217,12 +217,12 @@ function posts(basename, count) {
 
     if (posts.length != 0) {
       var file = new gutil.File({
-        path: basename + '/' + (page == 0 ? '' : page + '/') + 'index.html',
+        path: basename + '/' + (page === 1 ? '' : 'page/' + page + '/') + 'index.html',
         contents: new Buffer('')
       });
       file.page = {
         posts: posts,
-        prevPage: page != 0 ? basename + '/' + ((page-1) == 0 ? '' : page + '/') : null,
+        prevPage: page != 1 ? basename + '/' + ((page-1) == 1 ? '' : 'page/' + (page-1) + '/') : null,
         nextPage: null,
       };
       stream.write(file);
