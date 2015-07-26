@@ -1,5 +1,6 @@
 <!-- include nav-->
-<div class="navbar navbar-inverse navbar-static-top">
+<div class="navbar navbar-inverse navbar-static-top {% if page.nav == "home" %}navbar-home{% else %}navbar-alone{% endif %}
+">
   <div class="container">
     <div class="navbar-header">
       <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">{{ site.title }}</a>
