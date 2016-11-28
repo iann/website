@@ -1,0 +1,54 @@
+==================================================================
+https://keybase.io/iann
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://ianmoriarty.com
+  * I am iann (https://keybase.io/iann) on keybase.
+  * I have a public key ASCTmoqhtZwFaVTmChX_ygYk3LQYtoQPaJpx2GC_lQTuOgo
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "0101a5c566e145ffeb73f863c0d26b1cda20a9d7035db86080fe710a3edc53e641f70a",
+            "host": "keybase.io",
+            "kid": "0120939a8aa1b59c056954e60a15ffca0624dcb418b6840f689a71d860bf9504ee3a0a",
+            "uid": "879668f4c043e67cd7e9cd3b033e4719",
+            "username": "iann"
+        },
+        "service": {
+            "hostname": "ianmoriarty.com",
+            "protocol": "https:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "client": {
+        "name": "keybase.io go client",
+        "version": "1.0.18"
+    },
+    "ctime": 1480293213,
+    "expire_in": 504576000,
+    "merkle_root": {
+        "ctime": 1480293158,
+        "hash": "7af1d3b3282013a79c32d53e46c5a2ee635713ef99ce305fb0664fb686f1ed6ce74f3753c53d7fbdae38e2012f51a79fc7ad67d8721ddfcfcb74f9cd0c136376",
+        "seqno": 737411
+    },
+    "prev": "e65e069f35363420056590e0de3cf5c9410255ca5d55b98e9ee366d5fbddc423",
+    "seqno": 9,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgk5qKobWcBWlU5goV/8oGJNy0GLaED2iacdhgv5UE7joKp3BheWxvYWTFAvN7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTAxYTVjNTY2ZTE0NWZmZWI3M2Y4NjNjMGQyNmIxY2RhMjBhOWQ3MDM1ZGI4NjA4MGZlNzEwYTNlZGM1M2U2NDFmNzBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwOTM5YThhYTFiNTljMDU2OTU0ZTYwYTE1ZmZjYTA2MjRkY2I0MThiNjg0MGY2ODlhNzFkODYwYmY5NTA0ZWUzYTBhIiwidWlkIjoiODc5NjY4ZjRjMDQzZTY3Y2Q3ZTljZDNiMDMzZTQ3MTkiLCJ1c2VybmFtZSI6Imlhbm4ifSwic2VydmljZSI6eyJob3N0bmFtZSI6Imlhbm1vcmlhcnR5LmNvbSIsInByb3RvY29sIjoiaHR0cHM6In0sInR5cGUiOiJ3ZWJfc2VydmljZV9iaW5kaW5nIiwidmVyc2lvbiI6MX0sImNsaWVudCI6eyJuYW1lIjoia2V5YmFzZS5pbyBnbyBjbGllbnQiLCJ2ZXJzaW9uIjoiMS4wLjE4In0sImN0aW1lIjoxNDgwMjkzMjEzLCJleHBpcmVfaW4iOjUwNDU3NjAwMCwibWVya2xlX3Jvb3QiOnsiY3RpbWUiOjE0ODAyOTMxNTgsImhhc2giOiI3YWYxZDNiMzI4MjAxM2E3OWMzMmQ1M2U0NmM1YTJlZTYzNTcxM2VmOTljZTMwNWZiMDY2NGZiNjg2ZjFlZDZjZTc0ZjM3NTNjNTNkN2ZiZGFlMzhlMjAxMmY1MWE3OWZjN2FkNjdkODcyMWRkZmNmY2I3NGY5Y2QwYzEzNjM3NiIsInNlcW5vIjo3Mzc0MTF9LCJwcmV2IjoiZTY1ZTA2OWYzNTM2MzQyMDA1NjU5MGUwZGUzY2Y1Yzk0MTAyNTVjYTVkNTViOThlOWVlMzY2ZDVmYmRkYzQyMyIsInNlcW5vIjo5LCJ0YWciOiJzaWduYXR1cmUifaNzaWfEQIHljKhLNKUi0njbWZULfHbnaQuNW3mVF7IXUOZZVAZnh5ME+Mqt6RTQyLbStEpucZgge74zw37Cje3S+tvEZACoc2lnX3R5cGUgpGhhc2iCpHR5cGUIpXZhbHVlxCAETvqpaenOhVDnfVWkMYRJEXO19dSJPhiVyEk8GLcs4aN0YWfNAgKndmVyc2lvbgE=
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/iann
+
+==================================================================
