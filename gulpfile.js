@@ -303,9 +303,9 @@ gulp.task('optimize', function() {
     .pipe(uglify(uglifyOptions))   // Minify any javascript sources
     .pipe(jsFilter.restore())
     .pipe(cssFilter)
-    .pipe(uncss({
-            html: ["build/**/*.html"]
-    }))
+    // .pipe(uncss({
+    //         html: ["build/**/*.html"]
+    // }))
     .pipe(csso())               // Minify any CSS sources
     .pipe(cssFilter.restore())
     .pipe(rev())                // Rename the concatenated files
